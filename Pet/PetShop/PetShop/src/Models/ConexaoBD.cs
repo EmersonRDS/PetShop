@@ -8,7 +8,7 @@ namespace PetShop.src.Models
 
         public SqlConnection AbrirConexaoBD()
         {
-            string stringDeConexao = "Data Source=<Caminho do sql serverr>;Initial Catalog=DB_Pet_teste;Integrated Security=true";
+            string stringDeConexao = "Data Source=DESKTOP-E10U5KO\\SQLEXPRESS;Initial Catalog=DB_Pet_teste;Integrated Security=true";
             try
             {
                 conexao = new SqlConnection(stringDeConexao);

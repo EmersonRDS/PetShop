@@ -274,6 +274,7 @@
             txtIdTutor.Size = new Size(45, 23);
             txtIdTutor.TabIndex = 19;
             txtIdTutor.TextChanged += txtIdTutor_TextChanged;
+            txtIdTutor.KeyPress += txtIdTutor_KeyPress;
             txtIdTutor.Leave += txtIdTutor_Leave;
             // 
             // TxtObservacoes

@@ -11,6 +11,16 @@ namespace PetShop.src.Forms
         }
 
 
+        private void LimparCampos()
+        {
+            TxtNome.Text = string.Empty;
+            txtBairro.Text = string.Empty;
+            txtCidade.Text = string.Empty;
+            txtEndereco.Text = string.Empty;
+            txtTelefone.Text = string.Empty;
+            TxtObservacoes.Text = string.Empty;
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             try
@@ -18,6 +28,7 @@ namespace PetShop.src.Forms
                 Cliente c = new Cliente(TxtNome.Text, txtTelefone.Text, txtEndereco.Text, txtCidade.Text, txtBairro.Text, TxtObservacoes.Text);
 
                 c.CadastrarCliente();
+                LimparCampos();
             }
             catch(Exception ex)
             {

@@ -12,6 +12,24 @@ namespace PetShop.src.Forms
             DtDataNascimento.MaxDate = DateTime.Now;
         }
 
+        private void LimparCampos()
+        {
+            txtIdTutor.Text = string.Empty;
+            txtNomePet.Text = string.Empty;
+            txtNomeTutor.Text = string.Empty;
+            txtRaca.Text = string.Empty;
+            txtTipoDePelagem.Text = string.Empty;
+            TxtObservacoes.Text = string.Empty;
+            RdbAlergicoNao.Checked = false;
+            RdbAlergicoSim.Checked = false;
+            RdbPorteG.Checked = false;
+            RdbPorteM.Checked = false;
+            RdbPorteP.Checked = false;
+            RdbVacinadoNao.Checked = false;
+            RdbVacinadoSim.Checked = false;
+            DtDataNascimento.Value = DtDataNascimento.MaxDate;
+        }
+
         private void BtnBuscarCliente_Click(object sender, EventArgs e)
         {
             frmBuscaDeClientes buscaDeClientes = new frmBuscaDeClientes();
@@ -53,7 +71,7 @@ namespace PetShop.src.Forms
 
         private void BtnCadastrar_Click(object sender, EventArgs e)
         {
-            string nome, raca, tipoDePelo,porte,observacoes;
+            string nome, raca, tipoDePelo, porte, observacoes;
             DateTime dataDeNascimento;
             int idTutor, vacinado, alergico;
 
@@ -61,81 +79,58 @@ namespace PetShop.src.Forms
                 || String.IsNullOrWhiteSpace(txtIdTutor.Text) || (!RdbPorteG.Checked && !RdbPorteM.Checked && !RdbPorteP.Checked) || (!RdbAlergicoSim.Checked && !RdbAlergicoNao.Checked)
                 || (!RdbVacinadoNao.Checked && !RdbVacinadoSim.Checked)))
             {
-                string campos = "Nome, idCLiente , Raca, TipoPelagem";
-                
                 nome = txtNomePet.Text;
                 idTutor = Convert.ToInt32(txtIdTutor.Text);
                 raca = txtRaca.Text;
                 tipoDePelo = txtTipoDePelagem.Text;
-                
+                dataDeNascimento = DtDataNascimento.Value;
+                observacoes = TxtObservacoes.Text;
 
-                string valores = $"'{nome}', {idTutor}, '{raca}', '{tipoDePelo}'";
+                Pets pets = new Pets(nome, idTutor, raca, tipoDePelo, dataDeNascimento, observacoes);
 
-                if ((DtDataNascimento.Value.ToString("dd/MM/yyyy")) != DateTime.Today.ToString("dd/MM/yyyy"))
-                {
-                    dataDeNascimento = DtDataNascimento.Value;
-
-                    campos += ", DataNascimento";
-                    valores += $",Convert(smalldatetime, '{dataDeNascimento}')";
-                }
-
-                if (!String.IsNullOrEmpty(TxtObservacoes.Text))
-                {
-                    observacoes = TxtObservacoes.Text;
-
-                    campos += ", Observacao";
-                    valores += $", '{observacoes}'";
-                }
                 //valida porte
                 if (RdbPorteG.Checked)
                 {
                     porte = "G";
-                }else if (RdbPorteM.Checked)
+                }
+                else if (RdbPorteM.Checked)
                 {
                     porte = "M";
-                }else
+                }
+                else
                 {
                     porte = "P";
                 }
 
-                //valida alercico
+                pets.Porte = porte;
 
-                if (RdbAlergicoSim.Checked) {
+                //valida alergico
+
+                if (RdbAlergicoSim.Checked)
+                {
                     alergico = 1;
-                }else
+                }
+                else
                 {
                     alergico = 0;
                 }
+                pets.PossuiAlergia = alergico;
 
                 //valida vacinado
                 if (RdbVacinadoSim.Checked)
                 {
                     vacinado = 1;
-                }else
+                }
+                else
                 {
                     vacinado = 0;
                 }
-
-                campos += ", Porte, Alergia, Vacinado";
-                valores += $",'{porte}', {alergico}, {vacinado}";
-
-
-                ConexaoBD conexao = new ConexaoBD();
-                SqlCommand comandoSql = new SqlCommand();
-
+                pets.Vacinado = vacinado;
 
                 try
                 {
-                    comandoSql.Connection = conexao.AbrirConexaoBD();
-                    
-
-                    string comando = $"INSERT INTO Pets ({campos}) VALUES ({valores})";
-
-                    comandoSql.CommandText = comando;
-
-                    comandoSql.ExecuteNonQuery();
-                    conexao.FecharConexaoBD();
-                    MessageBox.Show("Pet Cadastrado!");
+                    pets.CadastroDePet();
+                    LimparCampos();
 
                 }
                 catch (Exception ex)
@@ -143,18 +138,19 @@ namespace PetShop.src.Forms
 
                     MessageBox.Show(ex.Message);
                 }
-                finally
-                {
-                    conexao.FecharConexaoBD();
-                }
-
             }
             else
             {
                 MessageBox.Show("Preencha as informações obrigatórias!\nInformações obrigatórias possuem um *");
             }
-                
-            
+        }
+
+        private void txtIdTutor_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if ((Keys)e.KeyChar == Keys.Enter)
+            {
+                txtIdTutor_Leave(sender, e);
+            }
         }
     }
 }
