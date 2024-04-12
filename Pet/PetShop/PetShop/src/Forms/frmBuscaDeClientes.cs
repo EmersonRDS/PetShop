@@ -16,6 +16,7 @@ namespace PetShop.src.Forms
     {
 
         public int IdCliente { get; private set; }
+        public int abertoPor { get; set; }
 
         public enum ColunasGrid
         {
@@ -76,6 +77,7 @@ namespace PetShop.src.Forms
             DtgListaDeClientes.Focus();
         }
 
+
         private void BtnConfirmar_Click(object sender, EventArgs e)
         {
             if (DtgListaDeClientes.SelectedRows.Count > 0)
@@ -83,6 +85,21 @@ namespace PetShop.src.Forms
                 DataGridViewRow Row = DtgListaDeClientes.SelectedRows[0];
                 IdCliente = Convert.ToInt32(Row.Cells[(int)ColunasGrid.Id].Value.ToString());
                 DialogResult = DialogResult.OK;
+                //quando é aberto pelo frmTelaInicial
+                if (abertoPor == 1)
+                {
+                    frmInformacaoDoCliente informacaoDoCliente = new frmInformacaoDoCliente();
+                    informacaoDoCliente.idCliente = IdCliente;
+
+                    informacaoDoCliente.Show();
+
+                }
+                //quando é aberto pelo frmInformacaoDoCliente
+                else if (abertoPor == 2)
+                {
+                    frmInformacaoDoCliente informacaoDoCliente = new frmInformacaoDoCliente();
+                    informacaoDoCliente.idCliente = IdCliente;
+                }
                 Close();
             }
         }

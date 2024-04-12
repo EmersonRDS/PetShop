@@ -16,9 +16,9 @@ namespace PetShop
 
         private void ListaDeClientes_Click(object sender, EventArgs e)
         {
-            frmListaDeClientes listaDeClientes = new frmListaDeClientes();
-
-            listaDeClientes.ShowDialog();
+            frmBuscaDeClientes buscaDeCliente = new frmBuscaDeClientes();
+            buscaDeCliente.abertoPor = 1;
+            buscaDeCliente.ShowDialog();
         }
 
 

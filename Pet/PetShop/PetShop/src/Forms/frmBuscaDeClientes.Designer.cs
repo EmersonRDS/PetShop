@@ -43,7 +43,7 @@
             // 
             // frmListaDeClientesBindingSource
             // 
-            frmListaDeClientesBindingSource.DataSource = typeof(frmListaDeClientes);
+            frmListaDeClientesBindingSource.DataSource = typeof(frmInformacaoDoCliente);
             // 
             // DtgListaDeClientes
             // 
@@ -145,6 +145,7 @@
             Name = "frmBuscaDeClientes";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Busca de Clientes";
+            TopMost = true;
             ((System.ComponentModel.ISupportInitialize)frmListaDeClientesBindingSource).EndInit();
             ((System.ComponentModel.ISupportInitialize)DtgListaDeClientes).EndInit();
             ResumeLayout(false);
