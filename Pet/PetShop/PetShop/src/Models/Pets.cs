@@ -5,6 +5,7 @@ namespace PetShop.src.Models
 {
     internal class Pets
     {
+        public int Id { get; set; }
         public string Nome { get; set; }
         public int IdTutor { get; set; }
         public string Raca { get; set; }
@@ -27,6 +28,8 @@ namespace PetShop.src.Models
             DataDeNascimento = dataDeNascimento;
             Observacoes = observacoes;
         }
+
+        public Pets() { }
 
         public string PreparaValores()
         {
@@ -53,7 +56,6 @@ namespace PetShop.src.Models
 
             return valores;
         }
-
 
         public void CadastroDePet()
         {
@@ -86,6 +88,5 @@ namespace PetShop.src.Models
             }
 
         }
-
     }
 }

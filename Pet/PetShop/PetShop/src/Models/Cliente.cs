@@ -170,7 +170,6 @@ namespace PetShop.src.Models
         public List<Cliente> ListarClientesComFiltro(string conteudo, string filtro)
         {
            List<Cliente> ListaClientes = new List<Cliente>();
-            DataTable dt = new DataTable();
 
             string comando = $"SELECT TOP 100 id,nome,telefone FROM Clientes WHERE {filtro} LIKE '{conteudo}%'";
 
@@ -196,7 +195,6 @@ namespace PetShop.src.Models
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                
             }
             finally
             {
@@ -207,16 +205,17 @@ namespace PetShop.src.Models
 
         public void ConsultaCliente(int idCliente)
         {
-            string comando = $"SELECT TOP 100 id,nome FROM Clientes WHERE id = {idCliente}";
+            string comando = $"SELECT TOP 100 * FROM Clientes WHERE id = {idCliente}";
 
             ConexaoBD conexao = new ConexaoBD();
             SqlCommand comandoSql = new SqlCommand();
 
-            comandoSql.Connection = conexao.AbrirConexaoBD();
-
-            comandoSql.CommandText = comando;
+            
             try
             {
+                comandoSql.Connection = conexao.AbrirConexaoBD();
+
+                comandoSql.CommandText = comando;
                 SqlDataReader reader = comandoSql.ExecuteReader();
                 if (reader.HasRows)
                 {
@@ -224,11 +223,69 @@ namespace PetShop.src.Models
                     {
                         this.Id = Convert.ToInt32(reader["Id"]);
                         this.Nome = reader["Nome"].ToString();
+                        this.Telefone = reader["Telefone"].ToString() ;
+                        this.Bairro = reader["Bairro"].ToString();
+                        this.Cidade = reader["Cidade"].ToString();
+                        this.Endereco = reader["Endereco"].ToString();
+                        this.Observacoes = reader["Observacao"].ToString();
                     }
                 }
                 else
                 {
                     throw new Exception($"Cliente Id {idCliente} não encontrado");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                conexao.FecharConexaoBD();
+            }
+        }
+
+        public void ObterPets(int idCliente)
+        {
+            string comando = $"SELECT * FROM Pets WHERE IdCliente = {idCliente}";
+
+            ConexaoBD conexao = new ConexaoBD();
+            SqlCommand comandoSql = new SqlCommand();
+
+            try
+            {
+
+                comandoSql.Connection = conexao.AbrirConexaoBD();
+
+                comandoSql.CommandText = comando;
+                SqlDataReader reader = comandoSql.ExecuteReader();
+                List<Pets> listaPets = new List<Pets>();
+                Pets pet = new Pets();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        pet.Id = Convert.ToInt32(reader["Id"]);
+                        pet.IdTutor = Convert.ToInt32(reader["IdCliente"]);
+                        pet.Nome = reader["Nome"].ToString();
+                        pet.Raca= reader["Raca"].ToString();
+                        pet.Vacinado = Convert.ToInt32(reader["Vacinado"]);
+                        pet.TipoDePelagem = reader["TipoPelagem"].ToString();
+                        pet.Porte = reader["Porte"].ToString();
+                        pet.PossuiAlergia = Convert.ToInt32(reader["Alergia"]);
+                        if (!String.IsNullOrEmpty(reader["DataNascimento"].ToString()))
+                        {
+                            pet.DataDeNascimento = (DateTime)reader["DataNascimento"];
+                        }
+                        pet.Observacoes = reader["Observacao"].ToString();
+
+                        listaPets.Add(pet);
+                    }
+                    if (listaPets.Count() > 0)
+                    {
+                        PetsDoCliente = listaPets;
+                    }
+                    
                 }
             }
             catch (Exception ex)
