@@ -35,7 +35,7 @@
             LblIdade = new Label();
             TxtTipoDePelagem = new TextBox();
             LblTipoDePelagem = new Label();
-            label2 = new Label();
+            LblAlergico = new Label();
             LblAlergiaTexto = new Label();
             LblPorte = new Label();
             LblPorteTexto = new Label();
@@ -43,7 +43,7 @@
             LblVacinadoTexto = new Label();
             TxtRaca = new TextBox();
             LblRaca = new Label();
-            textBox1 = new TextBox();
+            TxtNomePet = new TextBox();
             LblNomeDoPet = new Label();
             GbCliente = new GroupBox();
             label1 = new Label();
@@ -64,7 +64,7 @@
             TxtIdCliente = new TextBox();
             LblIdCliente = new Label();
             BtnAlterarCliente = new Button();
-            button1 = new Button();
+            BtnAlterarPet = new Button();
             BtnNovoPedido = new Button();
             GbInformacaoDoPet.SuspendLayout();
             GbCliente.SuspendLayout();
@@ -79,7 +79,7 @@
             GbInformacaoDoPet.Controls.Add(LblIdade);
             GbInformacaoDoPet.Controls.Add(TxtTipoDePelagem);
             GbInformacaoDoPet.Controls.Add(LblTipoDePelagem);
-            GbInformacaoDoPet.Controls.Add(label2);
+            GbInformacaoDoPet.Controls.Add(LblAlergico);
             GbInformacaoDoPet.Controls.Add(LblAlergiaTexto);
             GbInformacaoDoPet.Controls.Add(LblPorte);
             GbInformacaoDoPet.Controls.Add(LblPorteTexto);
@@ -87,7 +87,7 @@
             GbInformacaoDoPet.Controls.Add(LblVacinadoTexto);
             GbInformacaoDoPet.Controls.Add(TxtRaca);
             GbInformacaoDoPet.Controls.Add(LblRaca);
-            GbInformacaoDoPet.Controls.Add(textBox1);
+            GbInformacaoDoPet.Controls.Add(TxtNomePet);
             GbInformacaoDoPet.Controls.Add(LblNomeDoPet);
             GbInformacaoDoPet.ForeColor = SystemColors.ControlText;
             GbInformacaoDoPet.Location = new Point(344, 12);
@@ -152,14 +152,14 @@
             LblTipoDePelagem.TabIndex = 10;
             LblTipoDePelagem.Text = "Tipo de Pelagem";
             // 
-            // label2
+            // LblAlergico
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(67, 259);
-            label2.Name = "label2";
-            label2.Size = new Size(29, 15);
-            label2.TabIndex = 9;
-            label2.Text = "Não";
+            LblAlergico.AutoSize = true;
+            LblAlergico.Location = new Point(67, 259);
+            LblAlergico.Name = "LblAlergico";
+            LblAlergico.Size = new Size(29, 15);
+            LblAlergico.TabIndex = 9;
+            LblAlergico.Text = "Não";
             // 
             // LblAlergiaTexto
             // 
@@ -223,13 +223,13 @@
             LblRaca.TabIndex = 2;
             LblRaca.Text = "Raça";
             // 
-            // textBox1
+            // TxtNomePet
             // 
-            textBox1.Location = new Point(6, 46);
-            textBox1.Name = "textBox1";
-            textBox1.ReadOnly = true;
-            textBox1.Size = new Size(154, 23);
-            textBox1.TabIndex = 1;
+            TxtNomePet.Location = new Point(6, 46);
+            TxtNomePet.Name = "TxtNomePet";
+            TxtNomePet.ReadOnly = true;
+            TxtNomePet.Size = new Size(154, 23);
+            TxtNomePet.TabIndex = 1;
             // 
             // LblNomeDoPet
             // 
@@ -424,15 +424,17 @@
             BtnAlterarCliente.TabIndex = 15;
             BtnAlterarCliente.Text = "Alterar Cliente";
             BtnAlterarCliente.UseVisualStyleBackColor = true;
+            BtnAlterarCliente.MouseClick += BtnAlterarCliente_MouseClick;
             // 
-            // button1
+            // BtnAlterarPet
             // 
-            button1.Location = new Point(135, 398);
-            button1.Name = "button1";
-            button1.Size = new Size(74, 44);
-            button1.TabIndex = 16;
-            button1.Text = "Alterar Pet";
-            button1.UseVisualStyleBackColor = true;
+            BtnAlterarPet.Location = new Point(135, 398);
+            BtnAlterarPet.Name = "BtnAlterarPet";
+            BtnAlterarPet.Size = new Size(74, 44);
+            BtnAlterarPet.TabIndex = 16;
+            BtnAlterarPet.Text = "Alterar Pet";
+            BtnAlterarPet.UseVisualStyleBackColor = true;
+            BtnAlterarPet.Click += BtnAlterarPet_Click;
             // 
             // BtnNovoPedido
             // 
@@ -450,14 +452,13 @@
             BackColor = SystemColors.ActiveCaption;
             ClientSize = new Size(341, 454);
             Controls.Add(BtnNovoPedido);
-            Controls.Add(button1);
+            Controls.Add(BtnAlterarPet);
             Controls.Add(BtnAlterarCliente);
             Controls.Add(GbCliente);
             Controls.Add(GbInformacaoDoPet);
             Name = "frmInformacaoDoCliente";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Informações do Cliente";
-            TopMost = true;
             Load += frmInformacaoDoCliente_Load;
             GbInformacaoDoPet.ResumeLayout(false);
             GbInformacaoDoPet.PerformLayout();
@@ -469,14 +470,14 @@
         #endregion
         private GroupBox GbInformacaoDoPet;
         private Label LblNomeDoPet;
-        private TextBox textBox1;
+        private TextBox TxtNomePet;
         private TextBox TxtRaca;
         private Label LblRaca;
         private Label LblVacinadoTexto;
         private Label LblPorte;
         private Label LblPorteTexto;
         private Label LblVacinado;
-        private Label label2;
+        private Label LblAlergico;
         private Label LblAlergiaTexto;
         private TextBox TxtIdade;
         private Label LblIdade;
@@ -503,7 +504,7 @@
         private Label label1;
         private TextBox txtObservacoesCliente;
         private Button BtnAlterarCliente;
-        private Button button1;
+        private Button BtnAlterarPet;
         private Button BtnNovoPedido;
     }
 }

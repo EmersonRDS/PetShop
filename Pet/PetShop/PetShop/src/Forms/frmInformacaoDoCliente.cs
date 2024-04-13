@@ -7,20 +7,39 @@ namespace PetShop.src.Forms
     {
         public int dadosRecebidos { get; set; }
         public int idCliente { get; set; }
-        public int teste { get; set; }
+        public bool estaAberto { get; set; }
+
+        Cliente c = new Cliente();
         public frmInformacaoDoCliente()
         {
             InitializeComponent();
         }
+        public void LimparCampos()
+        {
+            TxtIdCliente.Text = "";
+            TxtNomeDoCliente.Text = "";
+            TxtTelefone.Text = "";
+            TxtCidade.Text = "";
+            TxtBairro.Text = "";
+            TxtEndereco.Text = "";
+            txtObservacoesCliente.Text = "";
+            TxtNomePet.Text = "";
+            TxtIdade.Text = "";
+            TxtRaca.Text = "";
+            TxtTipoDePelagem.Text = "";
+            LblPorte.Text = "";
+            LblVacinado.Text = "Sim";
+            LblAlergico.Text = "Sim";
+            TxtObservacoesPet.Text = "";
+        }
 
-
-        private void PreencherCampos(int idCliente)
+        private void PreencherCamposCliente(int idCliente)
         {
             dadosRecebidos = idCliente;
             this.idCliente = idCliente;
             LbListaDePets.Items.Clear();
 
-            Cliente c = new Cliente();
+
             c.ConsultaCliente(dadosRecebidos);
             TxtIdCliente.Text = c.Id.ToString();
             TxtNomeDoCliente.Text = c.Nome.ToString();
@@ -56,22 +75,61 @@ namespace PetShop.src.Forms
 
         }
 
+        public void PreencherCamposPets(int indexLista)
+        {
+            TxtNomePet.Text = c.PetsDoCliente[indexLista].Nome;
+            TxtRaca.Text = c.PetsDoCliente[indexLista].Raca;
+            TxtTipoDePelagem.Text = c.PetsDoCliente[indexLista].TipoDePelagem;
+            LblPorte.Text = c.PetsDoCliente[indexLista].Porte;
+
+            if (c.PetsDoCliente[indexLista].Vacinado == 1)
+            {
+                LblVacinado.Text = "Sim";
+            }
+            else
+            {
+                LblVacinado.Text = "Não";
+            }
+
+            if (c.PetsDoCliente[indexLista].PossuiAlergia == 1)
+            {
+                LblAlergico.Text = "Sim";
+            }
+            else
+            {
+                LblAlergico.Text = "Não";
+            }
+
+            if (!(c.PetsDoCliente[indexLista].DataDeNascimento.ToString() == "01/01/0001 00:00:00"))
+            {
+                DateTime dataHoje = DateTime.Now;
+                TimeSpan diferença = dataHoje.Subtract(c.PetsDoCliente[indexLista].DataDeNascimento);
+                int anos = (int)(diferença.Days / 365.25);
+                TxtIdade.Text = $"{anos}";
+            }
+            else
+            {
+                TxtIdade.Text = "";
+            }
+
+            TxtObservacoesPet.Text = c.PetsDoCliente[indexLista].Observacoes;
+        }
+
         private void BtnBuscar_Click(object sender, EventArgs e)
         {
             frmBuscaDeClientes buscaDeClientes = new frmBuscaDeClientes();
             buscaDeClientes.abertoPor = 2;
             if (buscaDeClientes.ShowDialog() == DialogResult.OK)
             {
-                PreencherCampos(buscaDeClientes.IdCliente);
+                LimparCampos();
+                PreencherCamposCliente(buscaDeClientes.IdCliente);
             }
         }
 
         private void frmInformacaoDoCliente_Load(object sender, EventArgs e)
         {
-            PreencherCampos(idCliente);
+            PreencherCamposCliente(idCliente);
         }
-
-        
 
         private void LbListaDePets_Click(object sender, EventArgs e)
         {
@@ -79,7 +137,23 @@ namespace PetShop.src.Forms
             {
                 GbInformacaoDoPet.Visible = true;
                 this.Width = 689;
+                PreencherCamposPets(LbListaDePets.SelectedIndex);
             }
+
+        }
+
+        private void BtnAlterarPet_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BtnAlterarCliente_MouseClick(object sender, MouseEventArgs e)
+        {
+            frmCadastroDeCliente cadastroDeCliente = new frmCadastroDeCliente();
+            cadastroDeCliente.alteraCliente = true;
+            c.Id = idCliente;
+            cadastroDeCliente.cliente = c;
+            cadastroDeCliente.ShowDialog();
             
         }
     }

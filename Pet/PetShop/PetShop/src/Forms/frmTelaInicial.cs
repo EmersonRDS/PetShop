@@ -9,30 +9,26 @@ namespace PetShop
             InitializeComponent();
         }
 
-        private void propertyGrid1_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void ListaDeClientes_Click(object sender, EventArgs e)
         {
             frmBuscaDeClientes buscaDeCliente = new frmBuscaDeClientes();
             buscaDeCliente.abertoPor = 1;
-            buscaDeCliente.ShowDialog();
+            buscaDeCliente.Show();
         }
 
 
         private void CadastrarCliente_Click(object sender, EventArgs e)
         {
             frmCadastroDeCliente cadastroDeCliente = new frmCadastroDeCliente();
-            cadastroDeCliente.ShowDialog();
+            cadastroDeCliente.Show();
         }
 
         private void CadastrarPet_Click(object sender, EventArgs e)
         {
             frmCadastroDePet cadastroDePet = new frmCadastroDePet();
 
-            cadastroDePet.ShowDialog();
+            cadastroDePet.Show();
         }
     }
 }

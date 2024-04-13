@@ -28,6 +28,13 @@ namespace PetShop.src.Forms
             Bairro,
             Observacao
         }
+
+        public enum enumOrigem
+        {
+            //começa por 1, pois se for 0 ele irá abrir a tela frmInformaçaoDoCliente quando for aberta a partir da tela frmCadastroDePet
+            TelaInicial = 1,
+            InformacaoDoCliente 
+        }
         public frmBuscaDeClientes()
         {
             InitializeComponent();
@@ -85,17 +92,17 @@ namespace PetShop.src.Forms
                 DataGridViewRow Row = DtgListaDeClientes.SelectedRows[0];
                 IdCliente = Convert.ToInt32(Row.Cells[(int)ColunasGrid.Id].Value.ToString());
                 DialogResult = DialogResult.OK;
+                
                 //quando é aberto pelo frmTelaInicial
-                if (abertoPor == 1)
+                if (abertoPor == (int)enumOrigem.TelaInicial)
                 {
                     frmInformacaoDoCliente informacaoDoCliente = new frmInformacaoDoCliente();
                     informacaoDoCliente.idCliente = IdCliente;
-
                     informacaoDoCliente.Show();
 
                 }
                 //quando é aberto pelo frmInformacaoDoCliente
-                else if (abertoPor == 2)
+                else if (abertoPor == (int)enumOrigem.InformacaoDoCliente)
                 {
                     frmInformacaoDoCliente informacaoDoCliente = new frmInformacaoDoCliente();
                     informacaoDoCliente.idCliente = IdCliente;

@@ -41,6 +41,7 @@
             txtCidade = new TextBox();
             label6 = new Label();
             txtBairro = new TextBox();
+            LblLiberarCampos = new Label();
             SuspendLayout();
             // 
             // TxtNome
@@ -52,6 +53,7 @@
             TxtNome.Size = new Size(172, 23);
             TxtNome.TabIndex = 0;
             TxtNome.WordWrap = false;
+            TxtNome.MouseDoubleClick += TxtNome_MouseDoubleClick;
             // 
             // label1
             // 
@@ -81,6 +83,7 @@
             txtTelefone.TabIndex = 1;
             txtTelefone.WordWrap = false;
             txtTelefone.TextChanged += txtTelefone_TextChanged;
+            txtTelefone.MouseDoubleClick += txtTelefone_MouseDoubleClick;
             // 
             // label3
             // 
@@ -100,6 +103,7 @@
             txtEndereco.Size = new Size(172, 23);
             txtEndereco.TabIndex = 4;
             txtEndereco.WordWrap = false;
+            txtEndereco.MouseDoubleClick += txtEndereco_MouseDoubleClick;
             // 
             // label4
             // 
@@ -119,6 +123,7 @@
             TxtObservacoes.PlaceholderText = "Digite as Observações";
             TxtObservacoes.Size = new Size(295, 66);
             TxtObservacoes.TabIndex = 5;
+            TxtObservacoes.MouseDoubleClick += TxtObservacoes_MouseDoubleClick;
             // 
             // btnCadastrar
             // 
@@ -152,6 +157,7 @@
             txtCidade.Size = new Size(172, 23);
             txtCidade.TabIndex = 2;
             txtCidade.WordWrap = false;
+            txtCidade.MouseDoubleClick += txtCidade_MouseDoubleClick;
             // 
             // label6
             // 
@@ -171,6 +177,18 @@
             txtBairro.Size = new Size(172, 23);
             txtBairro.TabIndex = 3;
             txtBairro.WordWrap = false;
+            txtBairro.MouseDoubleClick += txtBairro_MouseDoubleClick;
+            // 
+            // LblLiberarCampos
+            // 
+            LblLiberarCampos.AutoSize = true;
+            LblLiberarCampos.ForeColor = Color.Red;
+            LblLiberarCampos.Location = new Point(12, 9);
+            LblLiberarCampos.Name = "LblLiberarCampos";
+            LblLiberarCampos.Size = new Size(241, 15);
+            LblLiberarCampos.TabIndex = 13;
+            LblLiberarCampos.Text = "*Dois cliques no campo para liberar a edição";
+            LblLiberarCampos.Visible = false;
             // 
             // frmCadastroDeCliente
             // 
@@ -178,6 +196,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveCaption;
             ClientSize = new Size(484, 354);
+            Controls.Add(LblLiberarCampos);
             Controls.Add(label6);
             Controls.Add(txtBairro);
             Controls.Add(label5);
@@ -194,6 +213,7 @@
             ForeColor = SystemColors.ControlText;
             Name = "frmCadastroDeCliente";
             Text = "Cadastro de Cliente";
+            Load += frmCadastroDeCliente_Load;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -213,5 +233,6 @@
         private TextBox txtCidade;
         private Label label6;
         private TextBox txtBairro;
+        private Label LblLiberarCampos;
     }
 }
