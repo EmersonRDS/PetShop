@@ -3,7 +3,7 @@ using System.Data.SqlClient;
 
 namespace PetShop.src.Models
 {
-    internal class Pets
+    public class Pets
     {
         public int Id { get; set; }
         public string Nome { get; set; }

@@ -3,7 +3,7 @@ using System.Data.SqlClient;
 
 namespace PetShop.src.Models
 {
-    internal class Cliente
+    public class Cliente
     {
         public int Id { get; set; }
         public string Nome { get; set; }
@@ -13,6 +13,7 @@ namespace PetShop.src.Models
         public string Bairro { get; set; }
         public List<Pets> PetsDoCliente { get; set; }
         public string Observacoes { get; set; }
+        private bool update = false;
         public Cliente() { }
 
         public Cliente(string nome, string telefone, string endereco, string cidade, string bairro, string observacoes)
@@ -50,46 +51,92 @@ namespace PetShop.src.Models
 
         public string PreparaValores()
         {
+            string comando = "";
             if (String.IsNullOrWhiteSpace(Nome) || String.IsNullOrWhiteSpace(Telefone))
             {
                 throw new Exception("Cliente não cadastrado");
             }
-            string comando = $"'{Nome}', '{Telefone}', ";
-
-            if (String.IsNullOrWhiteSpace(Endereco))
+            if (update)
             {
-                comando += "NULL,";
+                comando = $"Nome = '{Nome}', Telefone = '{Telefone}'";
             }
             else
             {
-                comando += $"'{Endereco}',";
+                comando = $"'{Nome}', '{Telefone}', ";
+            }
+            
+
+            if (String.IsNullOrWhiteSpace(Endereco))
+            {
+                if (!update)
+                {
+                    comando += "NULL,";
+                }
+            }
+            else
+            {
+                if (update)
+                {
+                    comando += $", Endereco = '{Endereco}'";
+                }
+                else
+                {
+                    comando += $"'{Endereco}',";
+                }
             }
 
             if (String.IsNullOrWhiteSpace(Cidade))
             {
-                comando += "NULL,";
+                if (!update)
+                {
+                    comando += "NULL,";
+                }
             }
             else
             {
-                comando += $"'{Cidade}',";
+                if (update)
+                {
+                    comando += $",Cidade = '{Cidade}'";
+                }
+                else {
+                    comando += $"'{Cidade}',";
+                }
             }
 
             if (String.IsNullOrWhiteSpace(Bairro))
             {
-                comando += "NULL,";
+                if (!update)
+                {
+                    comando += "NULL,";
+                }
             }
             else
             {
+                if (update)
+                {
+                    comando += $",Bairro = '{Bairro}'";
+                }
+                else { 
                 comando += $"'{Bairro}',";
+                }
             }
 
             if (String.IsNullOrWhiteSpace(Observacoes))
             {
-                comando += "NULL";
+                if (!update)
+                {
+                    comando += "NULL";
+                }
             }
             else
             {
-                comando += $"'{Observacoes}'";
+                if (update)
+                {
+                    comando += $",Observacao = '{Observacoes}'";
+                }
+                else { 
+                    comando += $"'{Observacoes}'";
+                }
             }
 
             return comando;
@@ -260,11 +307,12 @@ namespace PetShop.src.Models
                 comandoSql.CommandText = comando;
                 SqlDataReader reader = comandoSql.ExecuteReader();
                 List<Pets> listaPets = new List<Pets>();
-                Pets pet = new Pets();
+                
                 if (reader.HasRows)
                 {
                     while (reader.Read())
                     {
+                        Pets pet = new Pets();
                         pet.Id = Convert.ToInt32(reader["Id"]);
                         pet.IdTutor = Convert.ToInt32(reader["IdCliente"]);
                         pet.Nome = reader["Nome"].ToString();
@@ -290,6 +338,37 @@ namespace PetShop.src.Models
             }
             catch (Exception ex)
             {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                conexao.FecharConexaoBD();
+            }
+        }
+        public void AlterarCliente()
+        {
+            ConexaoBD conexao = new ConexaoBD();
+            SqlCommand comandoSql = new SqlCommand();
+            this.update = true;
+
+            try
+            {
+                comandoSql.Connection = conexao.AbrirConexaoBD();
+                string valores = PreparaValores();
+
+                string comando = $"UPDATE Clientes SET {valores} " +
+                    $"WHERE Id = {this.Id}";
+
+                comandoSql.CommandText = comando;
+
+                comandoSql.ExecuteNonQuery();
+                conexao.FecharConexaoBD();
+                MessageBox.Show("Cliente Alterado!");
+
+            }
+            catch (Exception ex)
+            {
+
                 MessageBox.Show(ex.Message);
             }
             finally
