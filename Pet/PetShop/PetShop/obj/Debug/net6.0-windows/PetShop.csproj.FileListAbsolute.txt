@@ -24,6 +24,6 @@ C:\Projetos\Projetos Dotnet\Pet\PetShop\PetShop\obj\Debug\net6.0-windows\PetShop
 C:\Projetos\Projetos Dotnet\Pet\PetShop\PetShop\obj\Debug\net6.0-windows\PetShop.csproj.CopyComplete
 C:\Projetos\Projetos Dotnet\Pet\PetShop\PetShop\obj\Debug\net6.0-windows\PetShop.src.Forms.frmCadastroDeCliente.resources
 C:\Projetos\Projetos Dotnet\Pet\PetShop\PetShop\obj\Debug\net6.0-windows\PetShop.src.Forms.frmCadastroDePet.resources
-C:\Projetos\Projetos Dotnet\Pet\PetShop\PetShop\obj\Debug\net6.0-windows\PetShop.src.Forms.frmListaDeClientes.resources
 C:\Projetos\Projetos Dotnet\Pet\PetShop\PetShop\obj\Debug\net6.0-windows\PetShop.frmTelaInicial.resources
 C:\Projetos\Projetos Dotnet\Pet\PetShop\PetShop\obj\Debug\net6.0-windows\PetShop.src.Forms.frmBuscaDeClientes.resources
+C:\Projetos\Projetos Dotnet\Pet\PetShop\PetShop\obj\Debug\net6.0-windows\PetShop.src.Forms.frmInformacaoDoCliente.resources
