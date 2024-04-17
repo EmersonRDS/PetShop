@@ -38,10 +38,13 @@
             RdbPorteM = new RadioButton();
             RdbPorteP = new RadioButton();
             GbPorte = new GroupBox();
+            PnlPorte = new Panel();
             GbVacinado = new GroupBox();
+            PnlVacinado = new Panel();
             RdbVacinadoNao = new RadioButton();
             RdbVacinadoSim = new RadioButton();
             GbAlergico = new GroupBox();
+            PnlAlergico = new Panel();
             RdbAlergicoNao = new RadioButton();
             RdbAlergicoSim = new RadioButton();
             DtDataNascimento = new DateTimePicker();
@@ -53,9 +56,15 @@
             TxtObservacoes = new TextBox();
             LblObservacoes = new Label();
             BtnCadastrar = new Button();
+            LblAlteraPet = new Label();
+            panel1 = new Panel();
             GbPorte.SuspendLayout();
+            PnlPorte.SuspendLayout();
             GbVacinado.SuspendLayout();
+            PnlVacinado.SuspendLayout();
             GbAlergico.SuspendLayout();
+            PnlAlergico.SuspendLayout();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // LblNomeDoPet
@@ -74,6 +83,7 @@
             txtNomePet.PlaceholderText = "Digite o nome do Pet";
             txtNomePet.Size = new Size(222, 23);
             txtNomePet.TabIndex = 1;
+            txtNomePet.DoubleClick += txtNomePet_DoubleClick;
             // 
             // LblRaca
             // 
@@ -91,6 +101,7 @@
             txtRaca.PlaceholderText = "Digite a raça do Pet";
             txtRaca.Size = new Size(222, 23);
             txtRaca.TabIndex = 2;
+            txtRaca.DoubleClick += txtRaca_DoubleClick;
             // 
             // txtTipoDePelagem
             // 
@@ -99,6 +110,7 @@
             txtTipoDePelagem.PlaceholderText = "Digite o tipo de pelagem";
             txtTipoDePelagem.Size = new Size(222, 23);
             txtTipoDePelagem.TabIndex = 3;
+            txtTipoDePelagem.DoubleClick += txtTipoDePelagem_DoubleClick;
             // 
             // LblTipoDePelagem
             // 
@@ -112,7 +124,7 @@
             // RdbPorteG
             // 
             RdbPorteG.AutoSize = true;
-            RdbPorteG.Location = new Point(26, 22);
+            RdbPorteG.Location = new Point(22, 3);
             RdbPorteG.Name = "RdbPorteG";
             RdbPorteG.Size = new Size(33, 19);
             RdbPorteG.TabIndex = 4;
@@ -123,7 +135,7 @@
             // RdbPorteM
             // 
             RdbPorteM.AutoSize = true;
-            RdbPorteM.Location = new Point(65, 22);
+            RdbPorteM.Location = new Point(61, 3);
             RdbPorteM.Name = "RdbPorteM";
             RdbPorteM.Size = new Size(36, 19);
             RdbPorteM.TabIndex = 5;
@@ -134,7 +146,7 @@
             // RdbPorteP
             // 
             RdbPorteP.AutoSize = true;
-            RdbPorteP.Location = new Point(104, 22);
+            RdbPorteP.Location = new Point(100, 3);
             RdbPorteP.Name = "RdbPorteP";
             RdbPorteP.Size = new Size(32, 19);
             RdbPorteP.TabIndex = 6;
@@ -144,9 +156,7 @@
             // 
             // GbPorte
             // 
-            GbPorte.Controls.Add(RdbPorteM);
-            GbPorte.Controls.Add(RdbPorteP);
-            GbPorte.Controls.Add(RdbPorteG);
+            GbPorte.Controls.Add(PnlPorte);
             GbPorte.Location = new Point(12, 197);
             GbPorte.Name = "GbPorte";
             GbPorte.Size = new Size(169, 64);
@@ -154,10 +164,21 @@
             GbPorte.TabStop = false;
             GbPorte.Text = "Porte*";
             // 
+            // PnlPorte
+            // 
+            PnlPorte.Controls.Add(RdbPorteM);
+            PnlPorte.Controls.Add(RdbPorteP);
+            PnlPorte.Controls.Add(RdbPorteG);
+            PnlPorte.Dock = DockStyle.Fill;
+            PnlPorte.Location = new Point(3, 19);
+            PnlPorte.Name = "PnlPorte";
+            PnlPorte.Size = new Size(163, 42);
+            PnlPorte.TabIndex = 0;
+            PnlPorte.DoubleClick += PnlPorte_DoubleClick;
+            // 
             // GbVacinado
             // 
-            GbVacinado.Controls.Add(RdbVacinadoNao);
-            GbVacinado.Controls.Add(RdbVacinadoSim);
+            GbVacinado.Controls.Add(PnlVacinado);
             GbVacinado.Location = new Point(12, 282);
             GbVacinado.Name = "GbVacinado";
             GbVacinado.Size = new Size(169, 64);
@@ -165,10 +186,21 @@
             GbVacinado.TabStop = false;
             GbVacinado.Text = "Vacinado*";
             // 
+            // PnlVacinado
+            // 
+            PnlVacinado.Controls.Add(RdbVacinadoNao);
+            PnlVacinado.Controls.Add(RdbVacinadoSim);
+            PnlVacinado.Dock = DockStyle.Fill;
+            PnlVacinado.Location = new Point(3, 19);
+            PnlVacinado.Name = "PnlVacinado";
+            PnlVacinado.Size = new Size(163, 42);
+            PnlVacinado.TabIndex = 0;
+            PnlVacinado.DoubleClick += PnlVacinado_DoubleClick;
+            // 
             // RdbVacinadoNao
             // 
             RdbVacinadoNao.AutoSize = true;
-            RdbVacinadoNao.Location = new Point(104, 22);
+            RdbVacinadoNao.Location = new Point(100, 3);
             RdbVacinadoNao.Name = "RdbVacinadoNao";
             RdbVacinadoNao.Size = new Size(47, 19);
             RdbVacinadoNao.TabIndex = 8;
@@ -179,7 +211,7 @@
             // RdbVacinadoSim
             // 
             RdbVacinadoSim.AutoSize = true;
-            RdbVacinadoSim.Location = new Point(26, 22);
+            RdbVacinadoSim.Location = new Point(22, 3);
             RdbVacinadoSim.Name = "RdbVacinadoSim";
             RdbVacinadoSim.Size = new Size(45, 19);
             RdbVacinadoSim.TabIndex = 7;
@@ -189,8 +221,7 @@
             // 
             // GbAlergico
             // 
-            GbAlergico.Controls.Add(RdbAlergicoNao);
-            GbAlergico.Controls.Add(RdbAlergicoSim);
+            GbAlergico.Controls.Add(PnlAlergico);
             GbAlergico.Location = new Point(12, 369);
             GbAlergico.Name = "GbAlergico";
             GbAlergico.Size = new Size(169, 64);
@@ -198,10 +229,21 @@
             GbAlergico.TabStop = false;
             GbAlergico.Text = "Alergico*";
             // 
+            // PnlAlergico
+            // 
+            PnlAlergico.Controls.Add(RdbAlergicoNao);
+            PnlAlergico.Controls.Add(RdbAlergicoSim);
+            PnlAlergico.Dock = DockStyle.Fill;
+            PnlAlergico.Location = new Point(3, 19);
+            PnlAlergico.Name = "PnlAlergico";
+            PnlAlergico.Size = new Size(163, 42);
+            PnlAlergico.TabIndex = 0;
+            PnlAlergico.DoubleClick += PnlAlergico_DoubleClick;
+            // 
             // RdbAlergicoNao
             // 
             RdbAlergicoNao.AutoSize = true;
-            RdbAlergicoNao.Location = new Point(104, 22);
+            RdbAlergicoNao.Location = new Point(100, 3);
             RdbAlergicoNao.Name = "RdbAlergicoNao";
             RdbAlergicoNao.Size = new Size(47, 19);
             RdbAlergicoNao.TabIndex = 9;
@@ -212,7 +254,7 @@
             // RdbAlergicoSim
             // 
             RdbAlergicoSim.AutoSize = true;
-            RdbAlergicoSim.Location = new Point(26, 22);
+            RdbAlergicoSim.Location = new Point(22, 3);
             RdbAlergicoSim.Name = "RdbAlergicoSim";
             RdbAlergicoSim.Size = new Size(45, 19);
             RdbAlergicoSim.TabIndex = 8;
@@ -223,7 +265,7 @@
             // DtDataNascimento
             // 
             DtDataNascimento.Format = DateTimePickerFormat.Short;
-            DtDataNascimento.Location = new Point(334, 99);
+            DtDataNascimento.Location = new Point(0, 3);
             DtDataNascimento.MinDate = new DateTime(2000, 1, 1, 0, 0, 0, 0);
             DtDataNascimento.Name = "DtDataNascimento";
             DtDataNascimento.Size = new Size(106, 23);
@@ -274,6 +316,7 @@
             txtIdTutor.Size = new Size(45, 23);
             txtIdTutor.TabIndex = 19;
             txtIdTutor.TextChanged += txtIdTutor_TextChanged;
+            txtIdTutor.DoubleClick += txtIdTutor_DoubleClick;
             txtIdTutor.KeyPress += txtIdTutor_KeyPress;
             txtIdTutor.Leave += txtIdTutor_Leave;
             // 
@@ -287,6 +330,7 @@
             TxtObservacoes.PlaceholderText = "Digite as Observações";
             TxtObservacoes.Size = new Size(314, 66);
             TxtObservacoes.TabIndex = 20;
+            TxtObservacoes.DoubleClick += TxtObservacoes_DoubleClick;
             // 
             // LblObservacoes
             // 
@@ -308,12 +352,34 @@
             BtnCadastrar.UseVisualStyleBackColor = true;
             BtnCadastrar.Click += BtnCadastrar_Click;
             // 
+            // LblAlteraPet
+            // 
+            LblAlteraPet.AutoSize = true;
+            LblAlteraPet.ForeColor = Color.Red;
+            LblAlteraPet.Location = new Point(12, 9);
+            LblAlteraPet.Name = "LblAlteraPet";
+            LblAlteraPet.Size = new Size(236, 15);
+            LblAlteraPet.TabIndex = 23;
+            LblAlteraPet.Text = "Dois cliques no campo para liberar a edição";
+            LblAlteraPet.Visible = false;
+            // 
+            // panel1
+            // 
+            panel1.Controls.Add(DtDataNascimento);
+            panel1.Location = new Point(334, 99);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(114, 26);
+            panel1.TabIndex = 24;
+            panel1.DoubleClick += panel1_DoubleClick;
+            // 
             // frmCadastroDePet
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveCaption;
             ClientSize = new Size(669, 458);
+            Controls.Add(panel1);
+            Controls.Add(LblAlteraPet);
             Controls.Add(BtnCadastrar);
             Controls.Add(LblObservacoes);
             Controls.Add(TxtObservacoes);
@@ -322,7 +388,6 @@
             Controls.Add(txtNomeTutor);
             Controls.Add(LblNomeTutor);
             Controls.Add(LblDataNascimento);
-            Controls.Add(DtDataNascimento);
             Controls.Add(GbAlergico);
             Controls.Add(GbVacinado);
             Controls.Add(GbPorte);
@@ -335,12 +400,17 @@
             Name = "frmCadastroDePet";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Cadastro de Pet";
+            Load += frmCadastroDePet_Load;
             GbPorte.ResumeLayout(false);
-            GbPorte.PerformLayout();
+            PnlPorte.ResumeLayout(false);
+            PnlPorte.PerformLayout();
             GbVacinado.ResumeLayout(false);
-            GbVacinado.PerformLayout();
+            PnlVacinado.ResumeLayout(false);
+            PnlVacinado.PerformLayout();
             GbAlergico.ResumeLayout(false);
-            GbAlergico.PerformLayout();
+            PnlAlergico.ResumeLayout(false);
+            PnlAlergico.PerformLayout();
+            panel1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -372,5 +442,10 @@
         private TextBox TxtObservacoes;
         private Label LblObservacoes;
         private Button BtnCadastrar;
+        private Label LblAlteraPet;
+        private Panel PnlPorte;
+        private Panel PnlVacinado;
+        private Panel PnlAlergico;
+        private Panel panel1;
     }
 }

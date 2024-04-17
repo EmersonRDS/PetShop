@@ -1,15 +1,19 @@
 ﻿using PetShop.src.Models;
-using System.Data.SqlClient;
 
 namespace PetShop.src.Forms
 {
     public partial class frmCadastroDePet : Form
     {
+
+        public bool alteraPet = false;
+        public Pets pet = new Pets();
         private int dadosRecebidos;
         public frmCadastroDePet()
         {
             InitializeComponent();
             DtDataNascimento.MaxDate = DateTime.Now;
+
+
         }
 
         private void LimparCampos()
@@ -87,7 +91,7 @@ namespace PetShop.src.Forms
                 observacoes = TxtObservacoes.Text;
 
                 Pets pets = new Pets(nome, idTutor, raca, tipoDePelo, dataDeNascimento, observacoes);
-
+                
                 //valida porte
                 if (RdbPorteG.Checked)
                 {
@@ -127,10 +131,25 @@ namespace PetShop.src.Forms
                 }
                 pets.Vacinado = vacinado;
 
+                if (alteraPet)
+                {
+                    pets.Id = pet.Id;
+                }
+
                 try
                 {
-                    pets.CadastroDePet();
-                    LimparCampos();
+                    if (!alteraPet)
+                    {
+                        pets.CadastroDePet();
+                        LimparCampos();
+                    }
+                    else
+                    {
+                        pets.update = true;
+                        pets.AlterarPet();
+                        Close();
+                    }
+                    
 
                 }
                 catch (Exception ex)
@@ -150,6 +169,124 @@ namespace PetShop.src.Forms
             {
                 txtIdTutor_Leave(sender, e);
             }
+        }
+
+        private void frmCadastroDePet_Load(object sender, EventArgs e)
+        {
+            if (alteraPet)
+            {
+                txtIdTutor.ReadOnly = true;
+                txtNomePet.ReadOnly = true;
+                txtRaca.ReadOnly = true;
+                txtTipoDePelagem.ReadOnly = true;
+                TxtObservacoes.ReadOnly = true;
+                DtDataNascimento.Enabled = false;
+                BtnBuscarCliente.Enabled = false;
+                RdbAlergicoNao.Enabled = false;
+                RdbAlergicoSim.Enabled = false;
+                RdbPorteG.Enabled = false;
+                RdbPorteM.Enabled = false;
+                RdbPorteP.Enabled = false;
+                RdbVacinadoNao.Enabled = false;
+                RdbVacinadoSim.Enabled = false;
+                LblAlteraPet.Visible = true;
+
+                BtnCadastrar.Text = "Confirmar";
+                txtNomePet.Text = pet.Nome;
+                txtRaca.Text = pet.Raca;
+                txtTipoDePelagem.Text = pet.TipoDePelagem;
+                TxtObservacoes.Text = pet.Observacoes;
+                if (!(pet.DataDeNascimento.ToString() == "01/01/0001 00:00:00"))
+                {
+                    DtDataNascimento.Value = pet.DataDeNascimento;
+                }
+
+                switch (pet.Vacinado)
+                {
+                    case 0:
+                        RdbVacinadoNao.Checked = true;
+                        break;
+                    case 1:
+                        RdbVacinadoSim.Checked = true;
+                        break;
+                }
+
+                switch (pet.PossuiAlergia)
+                {
+                    case 0:
+                        RdbAlergicoNao.Checked = true;
+                        break;
+                    case 1:
+                        RdbAlergicoSim.Checked = true;
+                        break;
+                }
+
+                switch (pet.Porte)
+                {
+                    case "G":
+                        RdbPorteG.Checked = true;
+                        break;
+                    case "M":
+                        RdbPorteM.Checked = true;
+                        break;
+                    case "P":
+                        RdbPorteP.Checked = true;
+                        break;
+                }
+
+                txtIdTutor.Text = pet.IdTutor.ToString();
+                txtIdTutor_Leave(sender, e);
+            }
+        }
+
+        private void PnlPorte_DoubleClick(object sender, EventArgs e)
+        {
+            RdbPorteG.Enabled = true;
+            RdbPorteM.Enabled = true;
+            RdbPorteP.Enabled = true;
+        }
+
+        private void PnlVacinado_DoubleClick(object sender, EventArgs e)
+        {
+            RdbVacinadoNao.Enabled = true;
+            RdbVacinadoSim.Enabled = true;
+        }
+
+        private void PnlAlergico_DoubleClick(object sender, EventArgs e)
+        {
+            RdbAlergicoNao.Enabled = true;
+            RdbAlergicoSim.Enabled = true;
+        }
+
+        private void txtNomePet_DoubleClick(object sender, EventArgs e)
+        {
+            txtNomePet.ReadOnly = false;
+        }
+
+        private void txtRaca_DoubleClick(object sender, EventArgs e)
+        {
+            txtRaca.ReadOnly = false;
+        }
+
+        private void txtTipoDePelagem_DoubleClick(object sender, EventArgs e)
+        {
+            txtTipoDePelagem.ReadOnly = false;
+        }
+
+        private void txtIdTutor_DoubleClick(object sender, EventArgs e)
+        {
+            txtIdTutor.ReadOnly = false;
+            BtnBuscarCliente.Enabled = true;
+        }
+
+        private void panel1_DoubleClick(object sender, EventArgs e)
+        {
+            DtDataNascimento.Enabled = true;
+        }
+
+        private void TxtObservacoes_DoubleClick(object sender, EventArgs e)
+        {
+            TxtObservacoes.ReadOnly = false;
         }
     }
 }

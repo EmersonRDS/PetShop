@@ -1,5 +1,4 @@
 ﻿using PetShop.src.Models;
-using System.Security.Cryptography.X509Certificates;
 
 namespace PetShop.src.Forms
 {
@@ -135,16 +134,38 @@ namespace PetShop.src.Forms
         {
             if (LbListaDePets.SelectedIndex != -1)
             {
+                
                 GbInformacaoDoPet.Visible = true;
-                this.Width = 689;
                 PreencherCamposPets(LbListaDePets.SelectedIndex);
+                if (this.Width < 659)
+                {
+                    for (int i = 359; i < 660; i += 20)
+                    {
+                        this.Width = i;
+                        System.Timers.Timer timer = new System.Timers.Timer(1);
+                        timer.Start();
+                    }
+                }
+                
             }
 
         }
 
         private void BtnAlterarPet_Click(object sender, EventArgs e)
         {
-
+            
+            if (LbListaDePets.SelectedIndex != -1)
+            {
+                frmCadastroDePet cadastroDePet = new frmCadastroDePet();
+                cadastroDePet.alteraPet = true;
+                cadastroDePet.pet = c.PetsDoCliente[LbListaDePets.SelectedIndex];
+                cadastroDePet.Show();
+            }
+            else
+            {
+                MessageBox.Show("Selecione um pet!");
+            }
+            
         }
 
         private void BtnAlterarCliente_MouseClick(object sender, MouseEventArgs e)

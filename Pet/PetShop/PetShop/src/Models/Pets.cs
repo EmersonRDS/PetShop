@@ -20,6 +20,8 @@ namespace PetShop.src.Models
 
         public string Observacoes { get; set; }
 
+        public bool update = false;
+
         public Pets(string nome, int idTutor, string raca, string tipoDePelagem, DateTime dataDeNascimento, string observacoes) {
             Nome = nome;
             IdTutor = idTutor;
@@ -33,28 +35,58 @@ namespace PetShop.src.Models
 
         public string PreparaValores()
         {
-
-            string valores = $"'{Nome}', {IdTutor}, '{Raca}', {Vacinado}, '{TipoDePelagem}', '{Porte}',{PossuiAlergia}";
-
-            if (DataDeNascimento.ToString("dd/MM/yyyy") == DateTime.Today.ToString("dd/MM/yyyy"))
+            string comando = "";
+            if (!update)
             {
-                valores += ", NULL";
+                comando += $"'{Nome}', {IdTutor}, '{Raca}', {Vacinado}, '{TipoDePelagem}', '{Porte}',{PossuiAlergia}";
             }
             else
             {
-                valores += $",Convert(smalldatetime,'{DataDeNascimento}')";
+                comando += $"Nome = '{Nome}', IdCliente = {IdTutor}, Raca = '{Raca}', Vacinado = {Vacinado}, " +
+                    $"TipoPelagem = '{TipoDePelagem}', Porte = '{Porte}', Alergia = {PossuiAlergia}";
+            }
+            
+
+            if (DataDeNascimento.ToString("dd/MM/yyyy") == DateTime.Today.ToString("dd/MM/yyyy"))
+            {
+                if (!update)
+                {
+                    comando += ", NULL";
+                }
+            }
+            else
+            {
+                if (update)
+                {
+                    comando += $",DataNascimento = Convert(smalldatetime,'{DataDeNascimento.ToString("MM/dd/yyyy")}')";
+                }
+                else
+                {
+                    comando += $",Convert(smalldatetime,'{DataDeNascimento.ToString("MM/dd/yyyy")}')";
+                }
             }
 
             if (String.IsNullOrEmpty(Observacoes))
             {
-                valores += ", NULL";
+                if (!update)
+                {
+                    comando += ", NULL";
+                }
+                
             }
             else
             {
-                valores += $",'{Observacoes}'";
+                if (update)
+                {
+                    comando += $",Observacao = '{Observacoes}'";
+                }
+                else
+                {
+                    comando += $",'{Observacoes}'";
+                }
             }
 
-            return valores;
+            return comando;
         }
 
         public void CadastroDePet()
@@ -87,6 +119,35 @@ namespace PetShop.src.Models
                 conexao.FecharConexaoBD();
             }
 
+        }
+
+        public void AlterarPet(){
+            ConexaoBD conexao = new ConexaoBD();
+            SqlCommand comandoSql = new SqlCommand();
+            this.update = true;
+
+            try
+            {
+                comandoSql.Connection = conexao.AbrirConexaoBD();
+                string valores = PreparaValores();
+
+                string comando = $"UPDATE Pets SET {valores} " +
+                    $"WHERE Id = {this.Id}";
+
+                comandoSql.CommandText = comando;
+
+                comandoSql.ExecuteNonQuery();
+                MessageBox.Show("Pet Alterado!");
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                conexao.FecharConexaoBD();
+            }
         }
     }
 }
