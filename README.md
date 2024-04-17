@@ -48,6 +48,8 @@ funções essenciais{
                 - pet e cliente;
                 - Informações do cadastro do pet carregadas na tela apenas para visualização;
                 - Insumos que serão utilizados(lista dos produtos que foram cadastrados);
+			Insumos será uma tabela separada no banco, relacionando com a tabela de Pedidos. 
+   			No sistema, os insumos poderão ser inseridos em uma ListBox na tela.
                 - data/horário;
             }
 
