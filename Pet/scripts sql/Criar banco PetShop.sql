@@ -33,8 +33,8 @@ CREATE TABLE Pets(
 	CONSTRAINT FK_Pet_Cliente FOREIGN KEY (IdCliente)
 	REFERENCES Clientes(Id)
 )
-IF Not exists(Select * FROM sys.tables where name = 'Pedidos')
-CREATE table Pedidos(
+IF Not exists(Select * FROM sys.tables where name = 'OrdemDeServico')
+CREATE table OrdemDeServico(
 	Id int PRIMARY KEY IDENTITY (1,1) NOT NULL,
 	IdCliente int NOT NULL,
 	IdPet int NOT NULL,
@@ -43,10 +43,10 @@ CREATE table Pedidos(
 	Data SmallDatetime NOT NULL,
 	Procedimento nvarchar (500),
 
-	CONSTRAINT FK_Pedido_Cliente FOREIGN KEY (IdCliente)
+	CONSTRAINT FK_OrdemDeServico_Cliente FOREIGN KEY (IdCliente)
 	REFERENCES Clientes(Id),
 
-	CONSTRAINT FK_Pedido_Pet FOREIGN KEY (IdPet) REFERENCES Pets(Id)
+	CONSTRAINT FK_OrdemDeServico_Pet FOREIGN KEY (IdPet) REFERENCES Pets(Id)
 )
 IF Not exists(Select * FROM sys.tables where name = 'Insumos')
 CREATE TABLE Insumos(
@@ -57,14 +57,14 @@ CREATE TABLE Insumos(
 )
 
 IF Not exists(Select * FROM sys.tables where name = 'InsumosPedidos')
-CREATE TABLE InsumosPedidos(
+CREATE TABLE InsumosOrdemDeServico(
 	Id int Primary KEY IDENTITY (1,1) Not null,
-	IdPedido int Not null,
+	IdOrdem int Not null,
 	IdInsumo int not null,
 
-	CONSTRAINT FK_InsumosPedidos_Pedidos FOREIGN KEY (IdPedido) REFERENCES Pedidos(Id),
+	CONSTRAINT FK_InsumosOrdemDeServico_OrdemDeServico FOREIGN KEY (IdOrdem) REFERENCES OrdemDeServico(Id),
 
-	CONSTRAINT FK_InsumosPedidos_Insumo FOREIGN KEY (IdInsumo) REFERENCES Insumos(Id)
+	CONSTRAINT FK_InsumosOrdemDeServico_Insumo FOREIGN KEY (IdInsumo) REFERENCES Insumos(Id)
 
 )
 
