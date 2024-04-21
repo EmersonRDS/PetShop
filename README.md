@@ -53,8 +53,8 @@ funções essenciais{
                 - data/horário;
             }
 
-            pedidos em aberto {
-                listar pedidos em aberto;
+            Ordem De Serviço {
+                listar ordens em aberto;
                 ao dar 2 cliques, abrir tela para finalização do pedido;
                 informações visiveis{
                     - cliente e contato;
@@ -64,12 +64,12 @@ funções essenciais{
                 }
             }
 
-            finalização do pedido{
-                listar todas as informações antes preenchidas no pedido;
+            finalização da ordem de serviço{
+                listar todas as informações antes preenchidas na ordem;
                 campo para inserir a quantidade de cada insumo que foi utilizado(baixar do estoque quando o pedido for finalizado);
                 valor recebido;
-                finalizar pedido (lançar valores no financeiro e baixar estoques.);
-                Cancelar pedido (exclui o pedido sem alterações de valores/estoque, retira da tela);
+                finalizar ordem (lançar valores no financeiro e baixar estoques.);
+                Cancelar ordem (exclui o pedido sem alterações de valores/estoque, retira da tela);
             }
         }
 
