@@ -39,7 +39,7 @@ CREATE table OrdemDeServico(
 	IdCliente int NOT NULL,
 	IdPet int NOT NULL,
 	EmAberto int NOT NULL,
-	Valor decimal (9) not null,
+	Valor decimal (9,2) not null,
 	Data SmallDatetime NOT NULL,
 	Procedimento nvarchar (500),
 
