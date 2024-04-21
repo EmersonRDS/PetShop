@@ -41,8 +41,8 @@ funções essenciais{
         }
 
         
-        Pedidos diários{
-            Agendamento de pedido (deixar em aberto){
+        Orden De serviço diárias{
+            Agendamento da ordem (deixar em aberto){
                 - valor Cobrado;
                 - Procedimentos solicitados;
                 - pet e cliente;
