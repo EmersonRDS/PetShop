@@ -181,7 +181,31 @@ namespace PetShop.src.Forms
         private void BtnOrdemDeServico_Click(object sender, EventArgs e)
         {
             frmCadastroOrdemDeServico ordemDeServico = new frmCadastroOrdemDeServico();
+            ordemDeServico.c = c;
+            ordemDeServico.abertoPorInformacoes = true;
+            if (LbListaDePets.SelectedIndex != -1)
+            {
+                ordemDeServico.petSelecionado = LbListaDePets.SelectedIndex;
+            }
             ordemDeServico.Show();
+        }
+
+        private void TxtIdCliente_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if ((Keys)e.KeyChar == Keys.Enter)
+            {
+                PreencherCamposCliente(Convert.ToInt32(TxtIdCliente.Text));
+            }
+
+        }
+
+        private void TxtIdCliente_TextChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(TxtIdCliente.Text))
+            {
+                // Remove o caracter se nao for numero
+                TxtIdCliente.Text = new string(TxtIdCliente.Text.Where(char.IsDigit).ToArray());
+            }
         }
     }
 }

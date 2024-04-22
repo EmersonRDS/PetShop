@@ -16,16 +16,33 @@ namespace PetShop.src.Forms
     {
 
         private int dadosRecebidos { get; set; }
-        Cliente c = new Cliente();
+        public Cliente c = new Cliente();
         private string observacoesPet;
+        public bool abertoPorInformacoes;
+        public int petSelecionado = -1;
+        OrdemDeServico ordem;
+
         public frmCadastroOrdemDeServico()
         {
             InitializeComponent();
         }
 
+        private void LimparCampos()
+        {
+            GbInformacoesDoPet.Visible = false;
+            TxtIdCliente.Text = "";
+            TxtNomeDoCliente.Text = "";
+            LbListaDePets.Items.Clear();
+            LbProcedimentos.Items.Clear();
+            DtData.Value = DtData.MinDate;
+            MTxtValor.Text = "00000";
+        }
+
         public void PreencherCamposPets(int indexLista)
         {
             GbInformacoesDoPet.Visible = true;
+            PnlIdade.Visible = false;
+            PnlObservacoes.Visible = false;
             LblRacaDado.Text = c.PetsDoCliente[indexLista].Raca;
             LblPeloDado.Text = c.PetsDoCliente[indexLista].TipoDePelagem;
             LblPorteDado.Text = c.PetsDoCliente[indexLista].Porte;
@@ -108,6 +125,15 @@ namespace PetShop.src.Forms
             PnlObservacoes.Visible = false;
             GbInformacoesDoPet.Visible = false;
             DtData.MinDate = DateTime.Now;
+            if (abertoPorInformacoes)
+            {
+                BuscaDeCliente(c.Id);
+                if (petSelecionado != -1)
+                {
+                    PreencherCamposPets(petSelecionado);
+                    LbListaDePets.SelectedIndex = petSelecionado;
+                }
+            }
         }
 
         private void LblObservacoes_MouseHover(object sender, EventArgs e)
@@ -146,12 +172,12 @@ namespace PetShop.src.Forms
 
         private void BtnAdicionarProcedimento_Click(object sender, EventArgs e)
         {
-
             if (TxtAdicionarProcedimento.Text != "")
             {
                 if (!VerificarProcedimentos(TxtAdicionarProcedimento.Text))
                 {
                     LbProcedimentos.Items.Add(TxtAdicionarProcedimento.Text);
+                    TxtAdicionarProcedimento.Text = "";
                 }
                 else
                 {
@@ -181,6 +207,71 @@ namespace PetShop.src.Forms
             else
             {
                 MessageBox.Show("Selecione o procedimento para remover");
+            }
+        }
+
+        private decimal ObterValor(string valor)
+        {
+            string converter = new string(valor.Where(char.IsDigit).ToArray());
+            converter = converter.Substring(0, converter.Length - 2) + "," + converter.Substring(converter.Length - 2);
+            return Convert.ToDecimal(converter);
+        }
+
+        private void BtnCadastrar_Click(object sender, EventArgs e)
+        {
+            if (DtData.Value != DtData.MinDate && TxtIdCliente.Text != "" &&
+                ObterValor(MTxtValor.Text) != 00.0M && LbProcedimentos.Items.Count > 0
+                && LbListaDePets.SelectedIndex != -1)
+            {
+                try{
+                    string procedimentos = "";
+                    foreach (var item in LbProcedimentos.Items)
+                    {
+                        procedimentos += item.ToString() + " ; ";
+                    }
+                    ordem = new OrdemDeServico(Convert.ToInt32(TxtIdCliente.Text), c.PetsDoCliente[LbListaDePets.SelectedIndex].Id,
+                        ObterValor(MTxtValor.Text), DtData.Value, procedimentos);
+
+                    ordem.cadastrarOrdem();
+
+                    LimparCampos();
+                }catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Preencha as informações obrigatórias");
+            }
+        }
+
+        private void MTxtValor_Leave(object sender, EventArgs e)
+        {
+            string texto = MTxtValor.Text;
+            texto = new string(texto.Where(char.IsDigit).ToArray());
+            if (texto.Length < 5)
+            {
+                int x = 0; // para adicionar no máximo 2 zeros a direita
+                for (int i = texto.Length; x < 2 && i < 5; i++)
+                {
+                    texto = texto.PadRight(i + 1, '0');
+                    x++;
+                }
+                for (int i = texto.Length; i < 5; i++)
+                {
+                    texto = texto.PadLeft(i + 1, '0');
+                }
+
+                MTxtValor.Text = texto.ToString();
+            }
+        }
+
+        private void MTxtValor_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if ((Keys)e.KeyChar == Keys.Enter)
+            {
+                MTxtValor_Leave((Control)sender, e);
             }
         }
     }

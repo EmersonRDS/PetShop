@@ -158,7 +158,6 @@ namespace PetShop.src.Models
                 comandoSql.CommandText = comando;
             
                 comandoSql.ExecuteNonQuery();
-                conexao.FecharConexaoBD();
                 MessageBox.Show("Cliente Cadastrado!");
 
             }catch (Exception ex)

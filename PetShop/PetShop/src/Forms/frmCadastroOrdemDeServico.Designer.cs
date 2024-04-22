@@ -97,6 +97,7 @@
             // 
             TxtCodigoPedido.Location = new Point(12, 26);
             TxtCodigoPedido.Name = "TxtCodigoPedido";
+            TxtCodigoPedido.ReadOnly = true;
             TxtCodigoPedido.Size = new Size(100, 23);
             TxtCodigoPedido.TabIndex = 1;
             // 
@@ -114,9 +115,9 @@
             LblIdCliente.AutoSize = true;
             LblIdCliente.Location = new Point(295, 9);
             LblIdCliente.Name = "LblIdCliente";
-            LblIdCliente.Size = new Size(72, 15);
+            LblIdCliente.Size = new Size(77, 15);
             LblIdCliente.TabIndex = 4;
-            LblIdCliente.Text = "Cod. Cliente";
+            LblIdCliente.Text = "Cod. Cliente*";
             // 
             // TxtIdCliente
             // 
@@ -161,9 +162,9 @@
             LblListaDePets.AutoSize = true;
             LblListaDePets.Location = new Point(12, 66);
             LblListaDePets.Name = "LblListaDePets";
-            LblListaDePets.Size = new Size(84, 15);
+            LblListaDePets.Size = new Size(89, 15);
             LblListaDePets.TabIndex = 30;
-            LblListaDePets.Text = "Pets do cliente";
+            LblListaDePets.Text = "Pets do cliente*";
             // 
             // DtData
             // 
@@ -179,9 +180,9 @@
             LblData.AutoSize = true;
             LblData.Location = new Point(129, 8);
             LblData.Name = "LblData";
-            LblData.Size = new Size(104, 15);
+            LblData.Size = new Size(109, 15);
             LblData.TabIndex = 34;
-            LblData.Text = "Horário do Pedido";
+            LblData.Text = "Horário do Pedido*";
             // 
             // GbInformacoesDoPet
             // 
@@ -354,15 +355,17 @@
             MTxtValor.Size = new Size(100, 23);
             MTxtValor.TabIndex = 38;
             MTxtValor.Text = "00000";
+            MTxtValor.KeyPress += MTxtValor_KeyPress;
+            MTxtValor.Leave += MTxtValor_Leave;
             // 
             // LblValor
             // 
             LblValor.AutoSize = true;
             LblValor.Location = new Point(641, 11);
             LblValor.Name = "LblValor";
-            LblValor.Size = new Size(33, 15);
+            LblValor.Size = new Size(38, 15);
             LblValor.TabIndex = 39;
-            LblValor.Text = "Valor";
+            LblValor.Text = "Valor*";
             // 
             // dataGridView1
             // 
@@ -438,9 +441,9 @@
             LblProcedimentos.AutoSize = true;
             LblProcedimentos.Location = new Point(12, 179);
             LblProcedimentos.Name = "LblProcedimentos";
-            LblProcedimentos.Size = new Size(87, 15);
+            LblProcedimentos.Size = new Size(92, 15);
             LblProcedimentos.TabIndex = 37;
-            LblProcedimentos.Text = "Procedimentos";
+            LblProcedimentos.Text = "Procedimentos*";
             // 
             // LbProcedimentos
             // 
@@ -491,6 +494,7 @@
             BtnCadastrar.Text = "Salvar";
             BtnCadastrar.TextAlign = ContentAlignment.MiddleRight;
             BtnCadastrar.UseVisualStyleBackColor = true;
+            BtnCadastrar.Click += BtnCadastrar_Click;
             // 
             // TTObservacao
             // 

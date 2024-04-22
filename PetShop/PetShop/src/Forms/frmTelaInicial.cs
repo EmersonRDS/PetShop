@@ -36,5 +36,11 @@ namespace PetShop
             frmCadastroOrdemDeServico ordemDeServico = new frmCadastroOrdemDeServico();
             ordemDeServico.Show();
         }
+
+        private void BtnListaDeOrdens_Click(object sender, EventArgs e)
+        {
+            frmListaDeOrdensDeServico listaDeOrdens = new frmListaDeOrdensDeServico();
+            listaDeOrdens.Show();
+        }
     }
 }

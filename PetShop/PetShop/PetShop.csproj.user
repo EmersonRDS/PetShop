@@ -16,6 +16,9 @@
     <Compile Update="src\Forms\frmListaDeClientes.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="src\Forms\frmListaDeOrdensDeServico.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="src\Forms\frmTelaInicial.cs">
       <SubType>Form</SubType>
     </Compile>

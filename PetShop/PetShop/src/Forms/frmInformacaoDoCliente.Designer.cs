@@ -407,6 +407,8 @@
             TxtIdCliente.Name = "TxtIdCliente";
             TxtIdCliente.Size = new Size(54, 23);
             TxtIdCliente.TabIndex = 17;
+            TxtIdCliente.TextChanged += TxtIdCliente_TextChanged;
+            TxtIdCliente.KeyPress += TxtIdCliente_KeyPress;
             // 
             // LblIdCliente
             // 

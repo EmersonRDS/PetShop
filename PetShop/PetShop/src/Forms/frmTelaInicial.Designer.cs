@@ -33,6 +33,7 @@
             CadastrarCliente = new Button();
             CadastrarPet = new Button();
             BtnCadastroPedidos = new Button();
+            BtnListaDeOrdens = new Button();
             SuspendLayout();
             // 
             // ListaDeClientes
@@ -101,12 +102,29 @@
             BtnCadastroPedidos.UseVisualStyleBackColor = false;
             BtnCadastroPedidos.Click += BtnCadastroPedidos_Click;
             // 
+            // BtnListaDeOrdens
+            // 
+            BtnListaDeOrdens.BackColor = Color.Aquamarine;
+            BtnListaDeOrdens.FlatAppearance.BorderColor = Color.DodgerBlue;
+            BtnListaDeOrdens.FlatAppearance.BorderSize = 2;
+            BtnListaDeOrdens.FlatStyle = FlatStyle.Flat;
+            BtnListaDeOrdens.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            BtnListaDeOrdens.ForeColor = SystemColors.ControlText;
+            BtnListaDeOrdens.Location = new Point(410, 334);
+            BtnListaDeOrdens.Name = "BtnListaDeOrdens";
+            BtnListaDeOrdens.Size = new Size(188, 103);
+            BtnListaDeOrdens.TabIndex = 5;
+            BtnListaDeOrdens.Text = "Ordens de Serviço";
+            BtnListaDeOrdens.UseVisualStyleBackColor = false;
+            BtnListaDeOrdens.Click += BtnListaDeOrdens_Click;
+            // 
             // frmTelaInicial
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveCaption;
             ClientSize = new Size(1008, 729);
+            Controls.Add(BtnListaDeOrdens);
             Controls.Add(BtnCadastroPedidos);
             Controls.Add(CadastrarPet);
             Controls.Add(CadastrarCliente);
@@ -114,6 +132,7 @@
             Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
             Name = "frmTelaInicial";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Tela Inicial";
             ResumeLayout(false);
         }
@@ -124,5 +143,6 @@
         private Button CadastrarCliente;
         private Button CadastrarPet;
         private Button BtnCadastroPedidos;
+        private Button BtnListaDeOrdens;
     }
 }
