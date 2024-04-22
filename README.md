@@ -41,7 +41,7 @@ funções essenciais{
         }
 
         
-        Orden De serviço diárias{
+        Ordem De serviço diárias{
             Agendamento da ordem (deixar em aberto){
                 - valor Cobrado;
                 - Procedimentos solicitados;
