@@ -11,7 +11,9 @@ namespace PetShop.src.Models
     {
         public int Id { get; set; }
         public int IdCliente { get; set; }
+        public string NomeCliente { get; set; }
         public int IdPet {  get; set; }
+        public string NomePet { get; set; }
         public int EmAberto { get; set; }
         public decimal Valor { get; set; }
         public DateTime Data {  get; set; }
@@ -74,6 +76,70 @@ namespace PetShop.src.Models
                 conexao.FecharConexaoBD();
             }
 
+        }
+
+        public List<OrdemDeServico> ConsultarOrdens(DateTime dataInicial, DateTime dataFinal, string filtro, string filtroConteudo,int emAberto)
+        {
+
+            List<OrdemDeServico> ordemDeServicos= new List<OrdemDeServico>();
+
+            string comando = "SELECT C.nome ClienteNome, P.Nome PetNome, OS.Id IdOrdem, OS.Valor, OS.Data " +
+                "FROM OrdemDeServico AS OS " +
+                "\r\nINNER JOIN Clientes AS C ON C.id = OS.IdCliente" +
+                "\r\nINNER JOIN Pets AS P ON P.Id = OS.IdPet " +
+                $"WHERE " +
+                $"OS.data BETWEEN '{dataInicial.ToString("yyyy-MM-dd")}' and '{dataFinal.ToString("yyyy-MM-dd")}' " +
+                $"AND EmAberto = {emAberto}";
+
+            if (!String.IsNullOrWhiteSpace(filtroConteudo))
+            {
+                if (filtro == "Nome do Cliente")
+                {
+                    comando += $" AND C.Nome like '%{filtroConteudo}%'";
+                }
+                else
+                {
+                    comando += $" AND P.Nome like '%{filtroConteudo}%'";
+                }
+            }
+
+            ConexaoBD conexao = new ConexaoBD();
+
+            try
+            {
+                
+                SqlCommand comandoSql = new SqlCommand();
+                comandoSql.Connection = conexao.AbrirConexaoBD();
+
+                comandoSql.CommandText = comando;
+
+                SqlDataReader reader = comandoSql.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    OrdemDeServico ordem = new OrdemDeServico();
+                    ordem.Id = Convert.ToInt32(reader["IdOrdem"]);
+                    ordem.NomeCliente = reader["ClienteNome"].ToString();
+                    ordem.NomePet= reader["PetNome"].ToString();
+                    ordem.Valor = Convert.ToDecimal(reader["Valor"].ToString().Replace(",", "."));
+                    ordem.Data = Convert.ToDateTime(reader["data"]);
+                    
+                    ordemDeServicos.Add(ordem);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+
+            }
+            finally
+            {
+                conexao.FecharConexaoBD();
+
+            }
+
+            return ordemDeServicos;
         }
 
     }

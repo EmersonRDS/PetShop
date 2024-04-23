@@ -29,81 +29,186 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmListaDeOrdensDeServico));
-            panel1 = new Panel();
-            panel2 = new Panel();
-            groupBox2 = new GroupBox();
-            groupBox1 = new GroupBox();
-            groupBox3 = new GroupBox();
-            panel2.SuspendLayout();
+            PnlFiltros = new Panel();
+            LblStatus = new Label();
+            CbStatus = new ComboBox();
+            LblFiltroConteudo = new Label();
+            TxtFiltro = new TextBox();
+            LblFiltro = new Label();
+            CBfiltro = new ComboBox();
+            LblDataFinal = new Label();
+            DtDataFinal = new DateTimePicker();
+            LblDataInicial = new Label();
+            DtDataInicial = new DateTimePicker();
+            BtnBuscar = new Button();
+            PnlCards = new Panel();
+            PnlFiltros.SuspendLayout();
             SuspendLayout();
             // 
-            // panel1
+            // PnlFiltros
             // 
-            panel1.BackColor = Color.Teal;
-            panel1.Location = new Point(-1, 0);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(801, 86);
-            panel1.TabIndex = 0;
+            PnlFiltros.BackColor = Color.Teal;
+            PnlFiltros.Controls.Add(LblStatus);
+            PnlFiltros.Controls.Add(CbStatus);
+            PnlFiltros.Controls.Add(LblFiltroConteudo);
+            PnlFiltros.Controls.Add(TxtFiltro);
+            PnlFiltros.Controls.Add(LblFiltro);
+            PnlFiltros.Controls.Add(CBfiltro);
+            PnlFiltros.Controls.Add(LblDataFinal);
+            PnlFiltros.Controls.Add(DtDataFinal);
+            PnlFiltros.Controls.Add(LblDataInicial);
+            PnlFiltros.Controls.Add(DtDataInicial);
+            PnlFiltros.Controls.Add(BtnBuscar);
+            PnlFiltros.Location = new Point(-1, 0);
+            PnlFiltros.Name = "PnlFiltros";
+            PnlFiltros.Size = new Size(801, 86);
+            PnlFiltros.TabIndex = 0;
             // 
-            // panel2
+            // LblStatus
             // 
-            panel2.AutoScroll = true;
-            panel2.Controls.Add(groupBox3);
-            panel2.Controls.Add(groupBox2);
-            panel2.Controls.Add(groupBox1);
-            panel2.Location = new Point(-1, 83);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(801, 368);
-            panel2.TabIndex = 1;
+            LblStatus.AutoSize = true;
+            LblStatus.Location = new Point(594, 9);
+            LblStatus.Name = "LblStatus";
+            LblStatus.Size = new Size(39, 15);
+            LblStatus.TabIndex = 10;
+            LblStatus.Text = "Status";
             // 
-            // groupBox2
+            // CbStatus
             // 
-            groupBox2.Location = new Point(450, 18);
-            groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(313, 146);
-            groupBox2.TabIndex = 1;
-            groupBox2.TabStop = false;
-            groupBox2.Text = "groupBox2";
+            CbStatus.FormattingEnabled = true;
+            CbStatus.Items.AddRange(new object[] { "Em Aberto", "Fechado", "Cancelado" });
+            CbStatus.Location = new Point(594, 27);
+            CbStatus.Name = "CbStatus";
+            CbStatus.Size = new Size(101, 23);
+            CbStatus.TabIndex = 9;
             // 
-            // groupBox1
+            // LblFiltroConteudo
             // 
-            groupBox1.Location = new Point(38, 18);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(313, 146);
-            groupBox1.TabIndex = 0;
-            groupBox1.TabStop = false;
-            groupBox1.Text = "groupBox1";
+            LblFiltroConteudo.AutoSize = true;
+            LblFiltroConteudo.Location = new Point(443, 9);
+            LblFiltroConteudo.Name = "LblFiltroConteudo";
+            LblFiltroConteudo.Size = new Size(34, 15);
+            LblFiltroConteudo.TabIndex = 8;
+            LblFiltroConteudo.Text = "Filtro";
             // 
-            // groupBox3
+            // TxtFiltro
             // 
-            groupBox3.Location = new Point(38, 264);
-            groupBox3.Name = "groupBox3";
-            groupBox3.Size = new Size(313, 146);
-            groupBox3.TabIndex = 2;
-            groupBox3.TabStop = false;
-            groupBox3.Text = "groupBox3";
+            TxtFiltro.Location = new Point(443, 27);
+            TxtFiltro.Name = "TxtFiltro";
+            TxtFiltro.PlaceholderText = "Digite o conteúdo";
+            TxtFiltro.Size = new Size(138, 23);
+            TxtFiltro.TabIndex = 7;
+            // 
+            // LblFiltro
+            // 
+            LblFiltro.AutoSize = true;
+            LblFiltro.Location = new Point(315, 9);
+            LblFiltro.Name = "LblFiltro";
+            LblFiltro.Size = new Size(58, 15);
+            LblFiltro.TabIndex = 6;
+            LblFiltro.Text = "Filtrar por";
+            // 
+            // CBfiltro
+            // 
+            CBfiltro.FormattingEnabled = true;
+            CBfiltro.Items.AddRange(new object[] { "Nome do Cliente", "Nome do Pet" });
+            CBfiltro.Location = new Point(315, 27);
+            CBfiltro.Name = "CBfiltro";
+            CBfiltro.Size = new Size(115, 23);
+            CBfiltro.TabIndex = 5;
+            // 
+            // LblDataFinal
+            // 
+            LblDataFinal.AutoSize = true;
+            LblDataFinal.Location = new Point(175, 9);
+            LblDataFinal.Name = "LblDataFinal";
+            LblDataFinal.Size = new Size(59, 15);
+            LblDataFinal.TabIndex = 4;
+            LblDataFinal.Text = "Data Final";
+            // 
+            // DtDataFinal
+            // 
+            DtDataFinal.CustomFormat = "dd/MM/yyyy HH:mm";
+            DtDataFinal.Format = DateTimePickerFormat.Custom;
+            DtDataFinal.Location = new Point(175, 27);
+            DtDataFinal.MaxDate = new DateTime(2100, 12, 31, 0, 0, 0, 0);
+            DtDataFinal.MinDate = new DateTime(2024, 1, 1, 0, 0, 0, 0);
+            DtDataFinal.Name = "DtDataFinal";
+            DtDataFinal.Size = new Size(127, 23);
+            DtDataFinal.TabIndex = 3;
+            // 
+            // LblDataInicial
+            // 
+            LblDataInicial.AutoSize = true;
+            LblDataInicial.Location = new Point(35, 9);
+            LblDataInicial.Name = "LblDataInicial";
+            LblDataInicial.Size = new Size(65, 15);
+            LblDataInicial.TabIndex = 2;
+            LblDataInicial.Text = "Data Inicial";
+            // 
+            // DtDataInicial
+            // 
+            DtDataInicial.CustomFormat = "dd/MM/yyyy HH:mm";
+            DtDataInicial.Format = DateTimePickerFormat.Custom;
+            DtDataInicial.Location = new Point(35, 27);
+            DtDataInicial.MaxDate = new DateTime(2100, 12, 31, 0, 0, 0, 0);
+            DtDataInicial.MinDate = new DateTime(2024, 1, 1, 0, 0, 0, 0);
+            DtDataInicial.Name = "DtDataInicial";
+            DtDataInicial.Size = new Size(127, 23);
+            DtDataInicial.TabIndex = 1;
+            // 
+            // BtnBuscar
+            // 
+            BtnBuscar.Location = new Point(708, 27);
+            BtnBuscar.Name = "BtnBuscar";
+            BtnBuscar.Size = new Size(58, 23);
+            BtnBuscar.TabIndex = 0;
+            BtnBuscar.Text = "Buscar";
+            BtnBuscar.UseVisualStyleBackColor = true;
+            BtnBuscar.Click += BtnBuscar_Click;
+            // 
+            // PnlCards
+            // 
+            PnlCards.Location = new Point(12, 92);
+            PnlCards.Name = "PnlCards";
+            PnlCards.Size = new Size(776, 354);
+            PnlCards.TabIndex = 1;
             // 
             // frmListaDeOrdensDeServico
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            AutoScroll = true;
             BackColor = SystemColors.ActiveCaption;
             ClientSize = new Size(800, 450);
-            Controls.Add(panel2);
-            Controls.Add(panel1);
+            Controls.Add(PnlCards);
+            Controls.Add(PnlFiltros);
             Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
+            MaximumSize = new Size(816, 489);
+            MinimumSize = new Size(816, 489);
             Name = "frmListaDeOrdensDeServico";
-            Text = "frmListaDeOrdensDeServico";
-            panel2.ResumeLayout(false);
+            Text = "Busca de Ordens de Serviço";
+            Load += frmListaDeOrdensDeServico_Load;
+            PnlFiltros.ResumeLayout(false);
+            PnlFiltros.PerformLayout();
             ResumeLayout(false);
         }
 
         #endregion
 
-        private Panel panel1;
-        private Panel panel2;
-        private GroupBox groupBox1;
-        private GroupBox groupBox2;
-        private GroupBox groupBox3;
+        private Panel PnlFiltros;
+        private Panel PnlCards;
+        private Button BtnBuscar;
+        private DateTimePicker DtDataInicial;
+        private Label LblDataInicial;
+        private Label LblDataFinal;
+        private DateTimePicker DtDataFinal;
+        private Label LblFiltro;
+        private ComboBox CBfiltro;
+        private TextBox TxtFiltro;
+        private Label LblStatus;
+        private ComboBox CbStatus;
+        private Label LblFiltroConteudo;
     }
 }
