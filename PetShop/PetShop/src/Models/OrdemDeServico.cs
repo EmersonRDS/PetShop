@@ -39,7 +39,7 @@ namespace PetShop.src.Models
 
             comando += $",{Valor.ToString().Replace(",",".")}";
 
-            comando += $", Convert(smalldatetime,'{Data.ToString("MM/dd/yyyy")}')";
+            comando += $", Convert(smalldatetime,'{Data.ToString("MM/dd/yyyy HH:mm:ss")}')";
 
             comando += $",'{Procedimento}'";
 
@@ -88,7 +88,7 @@ namespace PetShop.src.Models
                 "\r\nINNER JOIN Clientes AS C ON C.id = OS.IdCliente" +
                 "\r\nINNER JOIN Pets AS P ON P.Id = OS.IdPet " +
                 $"WHERE " +
-                $"OS.data BETWEEN '{dataInicial.ToString("yyyy-MM-dd")}' and '{dataFinal.ToString("yyyy-MM-dd")}' " +
+                $"OS.data BETWEEN '{dataInicial.ToString("yyyy-MM-dd HH:mm:ss")}' and '{dataFinal.ToString("yyyy-MM-dd HH:mm:ss")}' " +
                 $"AND EmAberto = {emAberto}";
 
             if (!String.IsNullOrWhiteSpace(filtroConteudo))
@@ -102,6 +102,8 @@ namespace PetShop.src.Models
                     comando += $" AND P.Nome like '%{filtroConteudo}%'";
                 }
             }
+
+            comando += " ORDER BY Os.Data";
 
             ConexaoBD conexao = new ConexaoBD();
 
@@ -121,7 +123,7 @@ namespace PetShop.src.Models
                     ordem.Id = Convert.ToInt32(reader["IdOrdem"]);
                     ordem.NomeCliente = reader["ClienteNome"].ToString();
                     ordem.NomePet= reader["PetNome"].ToString();
-                    ordem.Valor = Convert.ToDecimal(reader["Valor"].ToString().Replace(",", "."));
+                    ordem.Valor = Convert.ToDecimal(reader["Valor"].ToString());
                     ordem.Data = Convert.ToDateTime(reader["data"]);
                     
                     ordemDeServicos.Add(ordem);
@@ -140,6 +142,46 @@ namespace PetShop.src.Models
             }
 
             return ordemDeServicos;
+        }
+
+        public void ConsultarOrdem()
+        {
+            string comando = $"SELECT * FROM OrdemDeServico where Id = {Id}";
+
+
+            ConexaoBD conexao = new ConexaoBD();
+
+            try
+            {
+
+                SqlCommand comandoSql = new SqlCommand();
+                comandoSql.Connection = conexao.AbrirConexaoBD();
+
+                comandoSql.CommandText = comando;
+
+                SqlDataReader reader = comandoSql.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    IdCliente = Convert.ToInt32(reader["IdCliente"].ToString());
+                    IdPet = Convert.ToInt32(reader["IdPet"].ToString());
+                    EmAberto = Convert.ToInt32(reader["EmAberto"].ToString());
+                    Valor = Convert.ToDecimal(reader["Valor"].ToString());
+                    Data = Convert.ToDateTime(reader["data"]);
+                    Procedimento = reader["Procedimento"].ToString();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+
+            }
+            finally
+            {
+                conexao.FecharConexaoBD();
+
+            }
         }
 
     }

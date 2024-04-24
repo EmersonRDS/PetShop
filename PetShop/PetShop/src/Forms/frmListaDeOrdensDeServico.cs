@@ -38,7 +38,8 @@ namespace PetShop.src.Forms
             {
                 System.Windows.Forms.GroupBox groupBox = new System.Windows.Forms.GroupBox();
                 groupBox.Text = $"{item.Id}";
-
+                groupBox.Name = $"GbOrdemDeServico{item.Id}";
+                // coloca o proximo GroupBox para baixo quando a linha ja possui 2 GroupBox e zera os campos, para repetir o processo
                 if (controladorVertical == 2)
                 {
                     eixoY += 160;
@@ -46,7 +47,7 @@ namespace PetShop.src.Forms
                     controladorHorizontal = 0;
                     controladorHeight++;
                 }
-
+                //Adiciona os dois GroupBox na linha, aumenta o controlador vertical em 1 sempre que executado
                 switch (controladorHorizontal)
                 {
                     case 0:
@@ -56,8 +57,6 @@ namespace PetShop.src.Forms
                         if (controladorHeight >= 2)
                         {
                             PnlCards.Height += 146;
-                            PnlFiltros.Width -= 9;
-                            PnlCards.Width -= 5;
                         }
                         break;
                     case 1:
@@ -66,9 +65,39 @@ namespace PetShop.src.Forms
                         break;
                 }
                 groupBox.Size = new Size(300, 146);
+                groupBox.DoubleClick += SelecionarCard;
 
                 PnlCards.Controls.Add(groupBox);
+                //adiciona os labels com as informações da Ordem de serviço
+                Label labelCLiente = new Label();
+                labelCLiente.Text = $"Cliente: {item.NomeCliente}";
+                labelCLiente.AutoSize = true;
+                labelCLiente.Location = new Point(20, 20);
+                labelCLiente.DoubleClick += SelecionarCard;
+                groupBox.Controls.Add(labelCLiente);
 
+                Label labelPet = new Label();
+                labelPet.Text = $"Pet: {item.NomePet}";
+                labelPet.AutoSize = true;
+                labelPet.Location = new Point(20, 40);
+                labelPet.DoubleClick += SelecionarCard;
+                groupBox.Controls.Add(labelPet);
+
+                Label labelValor = new Label();
+                labelValor.Text = $"Valor: R$ {item.Valor}";
+                labelValor.AutoSize = true;
+                labelValor.Location = new Point(20, 60);
+                labelValor.DoubleClick += SelecionarCard;
+                groupBox.Controls.Add(labelValor);
+
+                Label labelData = new Label();
+                labelData.AutoSize = true;
+                labelData.Text = $"Horário: {item.Data.ToString("dd/MM/yyyy - HH:mm")}";
+                labelData.Location = new Point(20, 80);
+                labelData.DoubleClick += SelecionarCard;
+                groupBox.Controls.Add(labelData);
+
+                //Diminui a Width dos paineis para não criar uma barra de scroll horizontal
                 if (!diminuiuWidth)
                 {
                     PnlFiltros.Width -= 17;
@@ -110,5 +139,33 @@ namespace PetShop.src.Forms
             CriarOrdem(listaOrdens);
 
         }
+
+        private void SelecionarCard(object sender, EventArgs e)
+        {
+            if (sender is System.Windows.Forms.GroupBox)
+            {
+                System.Windows.Forms.GroupBox groupBox = sender as System.Windows.Forms.GroupBox;
+
+                string groupBoxIdOrdem = groupBox.Text;
+                frmCadastroOrdemDeServico cadastroOrdemDeServico = new frmCadastroOrdemDeServico();
+                cadastroOrdemDeServico.abertoPorListaDeOrdens = true;
+                cadastroOrdemDeServico.ordem.Id = Convert.ToInt32(groupBoxIdOrdem);
+                cadastroOrdemDeServico.Show();
+
+            }
+
+            if (sender is Label)
+            {
+                // Obtém o GroupBox pai do Label
+                System.Windows.Forms.GroupBox groupBox = ((sender as Label).Parent) as System.Windows.Forms.GroupBox;
+
+                
+                if (groupBox != null)
+                {
+                    SelecionarCard(groupBox, e);
+                }
+            }
+        }
+
     }
 }

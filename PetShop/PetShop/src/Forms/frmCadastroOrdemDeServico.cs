@@ -19,8 +19,10 @@ namespace PetShop.src.Forms
         public Cliente c = new Cliente();
         private string observacoesPet;
         public bool abertoPorInformacoes;
+        public bool abertoPorListaDeOrdens;
+        public bool abertoEmEdicao;
         public int petSelecionado = -1;
-        OrdemDeServico ordem;
+        public OrdemDeServico ordem = new OrdemDeServico();
 
         public frmCadastroOrdemDeServico()
         {
@@ -133,6 +135,47 @@ namespace PetShop.src.Forms
                     PreencherCamposPets(petSelecionado);
                     LbListaDePets.SelectedIndex = petSelecionado;
                 }
+            }else if (abertoPorListaDeOrdens)
+            {
+                BtnAlterar.Enabled = true;
+                BtnFinalizar.Enabled = true;
+                BtnCancelar.Enabled = true;
+                BtnSalvar.Enabled = false;
+
+                //preencher campos
+                TxtCodigoOrdem.Text = ordem.Id.ToString();
+                ordem.ConsultarOrdem();
+                DtData.MinDate = Convert.ToDateTime(ordem.Data.ToString("dd/MM/yyyy"));
+                DtData.Value = ordem.Data;
+
+                if (ordem.Valor.ToString().Length < 6) //6 por causa do .
+                {
+                    string texto = ordem.Valor.ToString();
+                    for (int i = texto.Length; i < 6; i++)
+                    {
+                        texto = texto.PadLeft(i + 1, '0');
+                    }
+                    MTxtValor.Text = texto;
+                }
+                else
+                {
+                    MTxtValor.Text = ordem.Valor.ToString();
+                }
+                
+
+                BuscaDeCliente(ordem.IdCliente);
+                
+                for (int i = 0; i < LbListaDePets.Items.Count; i++)
+                {
+                    Pets pet = c.PetsDoCliente[i];
+                    if (pet.Id == ordem.IdPet)
+                    {
+                        LbListaDePets.SelectedItem = pet.Nome;
+                        PreencherCamposPets(LbListaDePets.SelectedIndex);
+                    }
+                }
+                
+                
             }
         }
 
@@ -217,7 +260,7 @@ namespace PetShop.src.Forms
             return Convert.ToDecimal(converter);
         }
 
-        private void BtnCadastrar_Click(object sender, EventArgs e)
+        private void BtnSalvar_Click(object sender, EventArgs e)
         {
             if (DtData.Value != DtData.MinDate && TxtIdCliente.Text != "" &&
                 ObterValor(MTxtValor.Text) != 00.0M && LbProcedimentos.Items.Count > 0

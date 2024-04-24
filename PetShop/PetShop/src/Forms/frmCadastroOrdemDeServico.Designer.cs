@@ -30,8 +30,8 @@
         {
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmCadastroOrdemDeServico));
-            LblPedido = new Label();
-            TxtCodigoPedido = new TextBox();
+            LblOrdemDeServico = new Label();
+            TxtCodigoOrdem = new TextBox();
             TxtNomeDoCliente = new TextBox();
             LblIdCliente = new Label();
             TxtIdCliente = new TextBox();
@@ -73,8 +73,11 @@
             TxtAdicionarProcedimento = new TextBox();
             btnRemoverProcedimento = new Button();
             BtnAdicionarProcedimento = new Button();
-            BtnCadastrar = new Button();
+            BtnSalvar = new Button();
             TTObservacao = new ToolTip(components);
+            BtnAlterar = new Button();
+            BtnCancelar = new Button();
+            BtnFinalizar = new Button();
             GbInformacoesDoPet.SuspendLayout();
             PnlIdade.SuspendLayout();
             PnlAlergicoObservacao.SuspendLayout();
@@ -84,26 +87,26 @@
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
-            // LblPedido
+            // LblOrdemDeServico
             // 
-            LblPedido.AutoSize = true;
-            LblPedido.Location = new Point(12, 9);
-            LblPedido.Name = "LblPedido";
-            LblPedido.Size = new Size(103, 15);
-            LblPedido.TabIndex = 0;
-            LblPedido.Text = "Código do Pedido";
+            LblOrdemDeServico.AutoSize = true;
+            LblOrdemDeServico.Location = new Point(12, 9);
+            LblOrdemDeServico.Name = "LblOrdemDeServico";
+            LblOrdemDeServico.Size = new Size(101, 15);
+            LblOrdemDeServico.TabIndex = 0;
+            LblOrdemDeServico.Text = "Ordem de Serviço";
             // 
-            // TxtCodigoPedido
+            // TxtCodigoOrdem
             // 
-            TxtCodigoPedido.Location = new Point(12, 26);
-            TxtCodigoPedido.Name = "TxtCodigoPedido";
-            TxtCodigoPedido.ReadOnly = true;
-            TxtCodigoPedido.Size = new Size(100, 23);
-            TxtCodigoPedido.TabIndex = 1;
+            TxtCodigoOrdem.Location = new Point(12, 26);
+            TxtCodigoOrdem.Name = "TxtCodigoOrdem";
+            TxtCodigoOrdem.ReadOnly = true;
+            TxtCodigoOrdem.Size = new Size(100, 23);
+            TxtCodigoOrdem.TabIndex = 1;
             // 
             // TxtNomeDoCliente
             // 
-            TxtNomeDoCliente.Location = new Point(416, 27);
+            TxtNomeDoCliente.Location = new Point(416, 26);
             TxtNomeDoCliente.Name = "TxtNomeDoCliente";
             TxtNomeDoCliente.PlaceholderText = "Nome do Cliente";
             TxtNomeDoCliente.ReadOnly = true;
@@ -121,7 +124,7 @@
             // 
             // TxtIdCliente
             // 
-            TxtIdCliente.Location = new Point(295, 27);
+            TxtIdCliente.Location = new Point(295, 26);
             TxtIdCliente.Name = "TxtIdCliente";
             TxtIdCliente.Size = new Size(72, 23);
             TxtIdCliente.TabIndex = 5;
@@ -131,7 +134,7 @@
             // BtnBuscarCliente
             // 
             BtnBuscarCliente.Image = Properties.Resources.BuscarCliente;
-            BtnBuscarCliente.Location = new Point(373, 27);
+            BtnBuscarCliente.Location = new Point(373, 26);
             BtnBuscarCliente.Name = "BtnBuscarCliente";
             BtnBuscarCliente.Size = new Size(37, 23);
             BtnBuscarCliente.TabIndex = 6;
@@ -348,7 +351,7 @@
             // 
             // MTxtValor
             // 
-            MTxtValor.Location = new Point(641, 29);
+            MTxtValor.Location = new Point(641, 26);
             MTxtValor.Mask = "$ ###,00";
             MTxtValor.Name = "MTxtValor";
             MTxtValor.PromptChar = ' ';
@@ -483,18 +486,18 @@
             BtnAdicionarProcedimento.UseVisualStyleBackColor = true;
             BtnAdicionarProcedimento.Click += BtnAdicionarProcedimento_Click;
             // 
-            // BtnCadastrar
+            // BtnSalvar
             // 
-            BtnCadastrar.Image = Properties.Resources.btnSalvar1;
-            BtnCadastrar.ImageAlign = ContentAlignment.MiddleLeft;
-            BtnCadastrar.Location = new Point(338, 356);
-            BtnCadastrar.Name = "BtnCadastrar";
-            BtnCadastrar.Size = new Size(73, 41);
-            BtnCadastrar.TabIndex = 52;
-            BtnCadastrar.Text = "Salvar";
-            BtnCadastrar.TextAlign = ContentAlignment.MiddleRight;
-            BtnCadastrar.UseVisualStyleBackColor = true;
-            BtnCadastrar.Click += BtnCadastrar_Click;
+            BtnSalvar.Image = Properties.Resources.btnSalvar1;
+            BtnSalvar.ImageAlign = ContentAlignment.MiddleLeft;
+            BtnSalvar.Location = new Point(283, 356);
+            BtnSalvar.Name = "BtnSalvar";
+            BtnSalvar.Size = new Size(73, 41);
+            BtnSalvar.TabIndex = 52;
+            BtnSalvar.Text = "Salvar";
+            BtnSalvar.TextAlign = ContentAlignment.MiddleRight;
+            BtnSalvar.UseVisualStyleBackColor = true;
+            BtnSalvar.Click += BtnSalvar_Click;
             // 
             // TTObservacao
             // 
@@ -502,13 +505,55 @@
             TTObservacao.ToolTipIcon = ToolTipIcon.Info;
             TTObservacao.ToolTipTitle = "Observações do pet";
             // 
+            // BtnAlterar
+            // 
+            BtnAlterar.Enabled = false;
+            BtnAlterar.Image = Properties.Resources.BtnAlterar2;
+            BtnAlterar.ImageAlign = ContentAlignment.MiddleLeft;
+            BtnAlterar.Location = new Point(200, 356);
+            BtnAlterar.Name = "BtnAlterar";
+            BtnAlterar.Size = new Size(73, 41);
+            BtnAlterar.TabIndex = 53;
+            BtnAlterar.Text = "Alterar";
+            BtnAlterar.TextAlign = ContentAlignment.MiddleRight;
+            BtnAlterar.UseVisualStyleBackColor = true;
+            // 
+            // BtnCancelar
+            // 
+            BtnCancelar.Enabled = false;
+            BtnCancelar.Image = Properties.Resources.BtnCancelar;
+            BtnCancelar.ImageAlign = ContentAlignment.MiddleLeft;
+            BtnCancelar.Location = new Point(366, 356);
+            BtnCancelar.Name = "BtnCancelar";
+            BtnCancelar.Size = new Size(87, 41);
+            BtnCancelar.TabIndex = 54;
+            BtnCancelar.Text = "Cancelar";
+            BtnCancelar.TextAlign = ContentAlignment.MiddleRight;
+            BtnCancelar.UseVisualStyleBackColor = true;
+            // 
+            // BtnFinalizar
+            // 
+            BtnFinalizar.Enabled = false;
+            BtnFinalizar.Image = Properties.Resources.BtnConfirmar1;
+            BtnFinalizar.ImageAlign = ContentAlignment.MiddleLeft;
+            BtnFinalizar.Location = new Point(463, 356);
+            BtnFinalizar.Name = "BtnFinalizar";
+            BtnFinalizar.Size = new Size(86, 41);
+            BtnFinalizar.TabIndex = 55;
+            BtnFinalizar.Text = "Finalizar";
+            BtnFinalizar.TextAlign = ContentAlignment.MiddleRight;
+            BtnFinalizar.UseVisualStyleBackColor = true;
+            // 
             // frmCadastroOrdemDeServico
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveCaption;
             ClientSize = new Size(748, 404);
-            Controls.Add(BtnCadastrar);
+            Controls.Add(BtnFinalizar);
+            Controls.Add(BtnCancelar);
+            Controls.Add(BtnAlterar);
+            Controls.Add(BtnSalvar);
             Controls.Add(btnRemoverProcedimento);
             Controls.Add(BtnAdicionarProcedimento);
             Controls.Add(TxtAdicionarProcedimento);
@@ -534,8 +579,8 @@
             Controls.Add(LblIdCliente);
             Controls.Add(TxtNomeDoCliente);
             Controls.Add(LblNomeCliente);
-            Controls.Add(TxtCodigoPedido);
-            Controls.Add(LblPedido);
+            Controls.Add(TxtCodigoOrdem);
+            Controls.Add(LblOrdemDeServico);
             Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
             MaximumSize = new Size(809, 541);
@@ -561,8 +606,8 @@
 
         #endregion
 
-        private Label LblPedido;
-        private TextBox TxtCodigoPedido;
+        private Label LblOrdemDeServico;
+        private TextBox TxtCodigoOrdem;
         private TextBox TxtNomeDoCliente;
         private Label LblIdCliente;
         private TextBox TxtIdCliente;
@@ -604,7 +649,10 @@
         private TextBox TxtAdicionarProcedimento;
         private Button btnRemoverProcedimento;
         private Button BtnAdicionarProcedimento;
-        private Button BtnCadastrar;
+        private Button BtnSalvar;
         private ToolTip TTObservacao;
+        private Button BtnAlterar;
+        private Button BtnCancelar;
+        private Button BtnFinalizar;
     }
 }
