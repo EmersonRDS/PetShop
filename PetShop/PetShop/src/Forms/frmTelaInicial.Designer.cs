@@ -34,6 +34,7 @@
             CadastrarPet = new Button();
             BtnCadastroPedidos = new Button();
             BtnListaDeOrdens = new Button();
+            PnlMenuLateral = new Panel();
             SuspendLayout();
             // 
             // ListaDeClientes
@@ -44,7 +45,7 @@
             ListaDeClientes.FlatStyle = FlatStyle.Flat;
             ListaDeClientes.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             ListaDeClientes.ForeColor = SystemColors.ControlText;
-            ListaDeClientes.Location = new Point(152, 169);
+            ListaDeClientes.Location = new Point(410, 12);
             ListaDeClientes.Name = "ListaDeClientes";
             ListaDeClientes.Size = new Size(188, 103);
             ListaDeClientes.TabIndex = 1;
@@ -61,7 +62,7 @@
             CadastrarCliente.FlatStyle = FlatStyle.Flat;
             CadastrarCliente.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             CadastrarCliente.ForeColor = SystemColors.ControlText;
-            CadastrarCliente.Location = new Point(410, 169);
+            CadastrarCliente.Location = new Point(676, 12);
             CadastrarCliente.Name = "CadastrarCliente";
             CadastrarCliente.Size = new Size(188, 103);
             CadastrarCliente.TabIndex = 2;
@@ -78,7 +79,7 @@
             CadastrarPet.FlatStyle = FlatStyle.Flat;
             CadastrarPet.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             CadastrarPet.ForeColor = SystemColors.ControlText;
-            CadastrarPet.Location = new Point(668, 169);
+            CadastrarPet.Location = new Point(410, 169);
             CadastrarPet.Name = "CadastrarPet";
             CadastrarPet.Size = new Size(188, 103);
             CadastrarPet.TabIndex = 3;
@@ -94,7 +95,7 @@
             BtnCadastroPedidos.FlatStyle = FlatStyle.Flat;
             BtnCadastroPedidos.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             BtnCadastroPedidos.ForeColor = SystemColors.ControlText;
-            BtnCadastroPedidos.Location = new Point(152, 334);
+            BtnCadastroPedidos.Location = new Point(410, 341);
             BtnCadastroPedidos.Name = "BtnCadastroPedidos";
             BtnCadastroPedidos.Size = new Size(188, 103);
             BtnCadastroPedidos.TabIndex = 4;
@@ -110,7 +111,7 @@
             BtnListaDeOrdens.FlatStyle = FlatStyle.Flat;
             BtnListaDeOrdens.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             BtnListaDeOrdens.ForeColor = SystemColors.ControlText;
-            BtnListaDeOrdens.Location = new Point(410, 334);
+            BtnListaDeOrdens.Location = new Point(676, 341);
             BtnListaDeOrdens.Name = "BtnListaDeOrdens";
             BtnListaDeOrdens.Size = new Size(188, 103);
             BtnListaDeOrdens.TabIndex = 5;
@@ -118,12 +119,22 @@
             BtnListaDeOrdens.UseVisualStyleBackColor = false;
             BtnListaDeOrdens.Click += BtnListaDeOrdens_Click;
             // 
+            // PnlMenuLateral
+            // 
+            PnlMenuLateral.BackColor = Color.FromArgb(46, 139, 201);
+            PnlMenuLateral.Dock = DockStyle.Left;
+            PnlMenuLateral.Location = new Point(0, 0);
+            PnlMenuLateral.Name = "PnlMenuLateral";
+            PnlMenuLateral.Size = new Size(232, 729);
+            PnlMenuLateral.TabIndex = 6;
+            // 
             // frmTelaInicial
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = SystemColors.ActiveCaption;
+            BackColor = Color.FromArgb(102, 153, 204);
             ClientSize = new Size(1008, 729);
+            Controls.Add(PnlMenuLateral);
             Controls.Add(BtnListaDeOrdens);
             Controls.Add(BtnCadastroPedidos);
             Controls.Add(CadastrarPet);
@@ -144,5 +155,6 @@
         private Button CadastrarPet;
         private Button BtnCadastroPedidos;
         private Button BtnListaDeOrdens;
+        private Panel PnlMenuLateral;
     }
 }

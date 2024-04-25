@@ -47,6 +47,7 @@
             LblIdade = new Label();
             PnlAlergicoObservacao = new Panel();
             PnlObservacoes = new Panel();
+            pictureBox1 = new PictureBox();
             LblObservacoes = new Label();
             LblAlergicoDado = new Label();
             PnlPorteVacinado = new Panel();
@@ -63,9 +64,9 @@
             dataGridView1 = new DataGridView();
             BtnAdicionarInsumo = new Button();
             btnRemoverInsumo = new Button();
-            textBox1 = new TextBox();
+            TxtDescricaoInsumo = new TextBox();
             btnPesquisaInsumo = new Button();
-            textBox2 = new TextBox();
+            TxtCodInsumo = new TextBox();
             LblIdInsumo = new Label();
             LblDescricaoInsumo = new Label();
             LblProcedimentos = new Label();
@@ -82,6 +83,7 @@
             PnlIdade.SuspendLayout();
             PnlAlergicoObservacao.SuspendLayout();
             PnlObservacoes.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             PnlPorteVacinado.SuspendLayout();
             PnlRacaPelo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
@@ -238,18 +240,29 @@
             // 
             // PnlObservacoes
             // 
+            PnlObservacoes.Controls.Add(pictureBox1);
             PnlObservacoes.Controls.Add(LblObservacoes);
-            PnlObservacoes.Location = new Point(3, 24);
+            PnlObservacoes.Location = new Point(3, 22);
             PnlObservacoes.Name = "PnlObservacoes";
-            PnlObservacoes.Size = new Size(88, 33);
+            PnlObservacoes.Size = new Size(98, 35);
             PnlObservacoes.TabIndex = 1;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Image = Properties.Resources.btnInformacao1;
+            pictureBox1.Location = new Point(69, 0);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(29, 16);
+            pictureBox1.TabIndex = 1;
+            pictureBox1.TabStop = false;
+            pictureBox1.MouseHover += pictureBox1_MouseHover;
             // 
             // LblObservacoes
             // 
             LblObservacoes.AutoSize = true;
             LblObservacoes.Font = new Font("Segoe UI", 9F, FontStyle.Underline, GraphicsUnit.Point);
-            LblObservacoes.ForeColor = SystemColors.Highlight;
-            LblObservacoes.Location = new Point(3, 7);
+            LblObservacoes.ForeColor = SystemColors.InfoText;
+            LblObservacoes.Location = new Point(-3, 9);
             LblObservacoes.Name = "LblObservacoes";
             LblObservacoes.Size = new Size(74, 15);
             LblObservacoes.TabIndex = 0;
@@ -397,13 +410,13 @@
             btnRemoverInsumo.TabIndex = 42;
             btnRemoverInsumo.UseVisualStyleBackColor = true;
             // 
-            // textBox1
+            // TxtDescricaoInsumo
             // 
-            textBox1.Location = new Point(368, 198);
-            textBox1.Name = "textBox1";
-            textBox1.ReadOnly = true;
-            textBox1.Size = new Size(338, 23);
-            textBox1.TabIndex = 43;
+            TxtDescricaoInsumo.Location = new Point(368, 198);
+            TxtDescricaoInsumo.Name = "TxtDescricaoInsumo";
+            TxtDescricaoInsumo.ReadOnly = true;
+            TxtDescricaoInsumo.Size = new Size(338, 23);
+            TxtDescricaoInsumo.TabIndex = 43;
             // 
             // btnPesquisaInsumo
             // 
@@ -414,12 +427,12 @@
             btnPesquisaInsumo.TabIndex = 44;
             btnPesquisaInsumo.UseVisualStyleBackColor = true;
             // 
-            // textBox2
+            // TxtCodInsumo
             // 
-            textBox2.Location = new Point(248, 197);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(78, 23);
-            textBox2.TabIndex = 45;
+            TxtCodInsumo.Location = new Point(248, 197);
+            TxtCodInsumo.Name = "TxtCodInsumo";
+            TxtCodInsumo.Size = new Size(78, 23);
+            TxtCodInsumo.TabIndex = 45;
             // 
             // LblIdInsumo
             // 
@@ -517,6 +530,7 @@
             BtnAlterar.Text = "Alterar";
             BtnAlterar.TextAlign = ContentAlignment.MiddleRight;
             BtnAlterar.UseVisualStyleBackColor = true;
+            BtnAlterar.Click += BtnAlterar_Click;
             // 
             // BtnCancelar
             // 
@@ -530,6 +544,7 @@
             BtnCancelar.Text = "Cancelar";
             BtnCancelar.TextAlign = ContentAlignment.MiddleRight;
             BtnCancelar.UseVisualStyleBackColor = true;
+            BtnCancelar.Click += BtnCancelar_Click;
             // 
             // BtnFinalizar
             // 
@@ -543,12 +558,13 @@
             BtnFinalizar.Text = "Finalizar";
             BtnFinalizar.TextAlign = ContentAlignment.MiddleRight;
             BtnFinalizar.UseVisualStyleBackColor = true;
+            BtnFinalizar.Click += BtnFinalizar_Click;
             // 
             // frmCadastroOrdemDeServico
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = SystemColors.ActiveCaption;
+            BackColor = Color.FromArgb(102, 153, 204);
             ClientSize = new Size(748, 404);
             Controls.Add(BtnFinalizar);
             Controls.Add(BtnCancelar);
@@ -560,9 +576,9 @@
             Controls.Add(LbProcedimentos);
             Controls.Add(LblDescricaoInsumo);
             Controls.Add(LblIdInsumo);
-            Controls.Add(textBox2);
+            Controls.Add(TxtCodInsumo);
             Controls.Add(btnPesquisaInsumo);
-            Controls.Add(textBox1);
+            Controls.Add(TxtDescricaoInsumo);
             Controls.Add(btnRemoverInsumo);
             Controls.Add(BtnAdicionarInsumo);
             Controls.Add(dataGridView1);
@@ -595,6 +611,7 @@
             PnlAlergicoObservacao.PerformLayout();
             PnlObservacoes.ResumeLayout(false);
             PnlObservacoes.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             PnlPorteVacinado.ResumeLayout(false);
             PnlPorteVacinado.PerformLayout();
             PnlRacaPelo.ResumeLayout(false);
@@ -639,9 +656,9 @@
         private DataGridView dataGridView1;
         private Button BtnAdicionarInsumo;
         private Button btnRemoverInsumo;
-        private TextBox textBox1;
+        private TextBox TxtDescricaoInsumo;
         private Button btnPesquisaInsumo;
-        private TextBox textBox2;
+        private TextBox TxtCodInsumo;
         private Label LblIdInsumo;
         private Label LblDescricaoInsumo;
         private Label LblProcedimentos;
@@ -654,5 +671,6 @@
         private Button BtnAlterar;
         private Button BtnCancelar;
         private Button BtnFinalizar;
+        private PictureBox pictureBox1;
     }
 }

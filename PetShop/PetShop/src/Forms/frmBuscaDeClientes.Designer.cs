@@ -132,7 +132,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = SystemColors.ActiveCaption;
+            BackColor = Color.FromArgb(102, 153, 204);
             ClientSize = new Size(561, 453);
             Controls.Add(LblConteudo);
             Controls.Add(BtnConfirmar);

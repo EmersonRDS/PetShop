@@ -73,7 +73,7 @@
             // 
             // GbInformacaoDoPet
             // 
-            GbInformacaoDoPet.BackColor = SystemColors.ActiveCaption;
+            GbInformacaoDoPet.BackColor = Color.FromArgb(102, 153, 204);
             GbInformacaoDoPet.Controls.Add(LblObservacoes);
             GbInformacaoDoPet.Controls.Add(TxtObservacoesPet);
             GbInformacaoDoPet.Controls.Add(TxtIdade);
@@ -453,8 +453,8 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = SystemColors.ActiveCaption;
-            ClientSize = new Size(341, 454);
+            BackColor = Color.FromArgb(102, 153, 204);
+            ClientSize = new Size(343, 454);
             Controls.Add(BtnOrdemDeServico);
             Controls.Add(BtnAlterarPet);
             Controls.Add(BtnAlterarCliente);

@@ -18,6 +18,7 @@ namespace PetShop.src.Models
         public decimal Valor { get; set; }
         public DateTime Data {  get; set; }
         public string Procedimento { get; set; }
+        public bool edicao = false;
 
         public OrdemDeServico() { }
         public OrdemDeServico(int idCliente, int idPet, decimal valor, DateTime data, string procedimento)
@@ -32,23 +33,39 @@ namespace PetShop.src.Models
         public string PreparaValores()
         {
             string comando = "";
+            if (edicao)
+            {
+                comando += $"IdCliente = {IdCliente}";
 
-            comando += $"{IdCliente}";
+                comando += $", IdPet = {IdPet}";
 
-            comando += $", {IdPet}";
+                comando += $",Valor = {Valor.ToString().Replace(",", ".")}";
 
-            comando += $",{Valor.ToString().Replace(",",".")}";
+                comando += $", Data = Convert(smalldatetime,'{Data.ToString("MM/dd/yyyy HH:mm:ss")}')";
 
-            comando += $", Convert(smalldatetime,'{Data.ToString("MM/dd/yyyy HH:mm:ss")}')";
+                comando += $",Procedimento = '{Procedimento}'";
 
-            comando += $",'{Procedimento}'";
+                comando += $", EmAberto = 1";
+            }
+            else
+            {
+                comando += $"{IdCliente}";
 
-            comando += $", 1";
+                comando += $", {IdPet}";
 
+                comando += $",{Valor.ToString().Replace(",", ".")}";
+
+                comando += $", Convert(smalldatetime,'{Data.ToString("MM/dd/yyyy HH:mm:ss")}')";
+
+                comando += $",'{Procedimento}'";
+
+                comando += $", 1";
+            }
+            
             return comando;
         }
 
-        public void cadastrarOrdem() {
+        public void CadastrarOrdem() {
             ConexaoBD conexao = new ConexaoBD();
             SqlCommand comandoSql = new SqlCommand();
 
@@ -112,7 +129,6 @@ namespace PetShop.src.Models
                 
                 SqlCommand comandoSql = new SqlCommand();
                 comandoSql.Connection = conexao.AbrirConexaoBD();
-
                 comandoSql.CommandText = comando;
 
                 SqlDataReader reader = comandoSql.ExecuteReader();
@@ -148,15 +164,12 @@ namespace PetShop.src.Models
         {
             string comando = $"SELECT * FROM OrdemDeServico where Id = {Id}";
 
-
             ConexaoBD conexao = new ConexaoBD();
 
             try
             {
-
                 SqlCommand comandoSql = new SqlCommand();
                 comandoSql.Connection = conexao.AbrirConexaoBD();
-
                 comandoSql.CommandText = comando;
 
                 SqlDataReader reader = comandoSql.ExecuteReader();
@@ -170,19 +183,97 @@ namespace PetShop.src.Models
                     Data = Convert.ToDateTime(reader["data"]);
                     Procedimento = reader["Procedimento"].ToString();
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                conexao.FecharConexaoBD();
+            }
+        }
+
+        public void CancelarOrdem()
+        {
+            string comando = $"UPDATE OrdemDeServico SET EmAberto = 0 where Id = {Id}";
+
+            ConexaoBD conexao = new ConexaoBD();
+
+            try
+            {
+                SqlCommand comandoSql = new SqlCommand();
+                comandoSql.Connection = conexao.AbrirConexaoBD();
+                comandoSql.CommandText = comando;
+
+                comandoSql.ExecuteNonQuery();
+                MessageBox.Show($"Ordem {Id} cancelada!");
 
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-
             }
             finally
             {
                 conexao.FecharConexaoBD();
-
             }
         }
 
+        public void finalizarOrdem()
+        {
+            string comando = $"UPDATE OrdemDeServico SET EmAberto = 2 where Id = {Id}";
+
+            ConexaoBD conexao = new ConexaoBD();
+
+            try
+            {
+                SqlCommand comandoSql = new SqlCommand();
+                comandoSql.Connection = conexao.AbrirConexaoBD();
+                comandoSql.CommandText = comando;
+
+                comandoSql.ExecuteNonQuery();
+                MessageBox.Show($"Ordem {Id} Finalizada!");
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                conexao.FecharConexaoBD();
+            }
+        }
+
+        public void AlterarOrdem()
+        {
+            ConexaoBD conexao = new ConexaoBD();
+            SqlCommand comandoSql = new SqlCommand();
+
+            try
+            {
+                comandoSql.Connection = conexao.AbrirConexaoBD();
+                string valores = PreparaValores();
+
+                string comando = $"UPDATE OrdemDeServico SET {valores} where Id = {Id}";
+
+                comandoSql.CommandText = comando;
+
+                comandoSql.ExecuteNonQuery();
+                MessageBox.Show("Ordem de serviço Alterada!");
+
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                conexao.FecharConexaoBD();
+            }
+
+        }
     }
 }

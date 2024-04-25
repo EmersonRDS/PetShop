@@ -47,7 +47,7 @@
             // 
             // PnlFiltros
             // 
-            PnlFiltros.BackColor = Color.Teal;
+            PnlFiltros.BackColor = Color.FromArgb(46, 139, 201);
             PnlFiltros.Controls.Add(LblStatus);
             PnlFiltros.Controls.Add(CbStatus);
             PnlFiltros.Controls.Add(LblFiltroConteudo);
@@ -179,7 +179,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
-            BackColor = SystemColors.ActiveCaption;
+            BackColor = Color.FromArgb(102, 153, 204);
             ClientSize = new Size(800, 450);
             Controls.Add(PnlCards);
             Controls.Add(PnlFiltros);

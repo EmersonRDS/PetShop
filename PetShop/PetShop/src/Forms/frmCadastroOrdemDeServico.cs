@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.Intrinsics.Arm;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -21,6 +22,7 @@ namespace PetShop.src.Forms
         public bool abertoPorInformacoes;
         public bool abertoPorListaDeOrdens;
         public bool abertoEmEdicao;
+        public int statusDaOrdem;
         public int petSelecionado = -1;
         public OrdemDeServico ordem = new OrdemDeServico();
 
@@ -106,7 +108,6 @@ namespace PetShop.src.Forms
             frmBuscaDeClientes buscaDeClientes = new frmBuscaDeClientes();
             if (buscaDeClientes.ShowDialog() == DialogResult.OK)
             {
-
                 dadosRecebidos = buscaDeClientes.IdCliente;
 
                 BuscaDeCliente(dadosRecebidos);
@@ -135,16 +136,44 @@ namespace PetShop.src.Forms
                     PreencherCamposPets(petSelecionado);
                     LbListaDePets.SelectedIndex = petSelecionado;
                 }
-            }else if (abertoPorListaDeOrdens)
+            }
+            else if (abertoPorListaDeOrdens)
             {
-                BtnAlterar.Enabled = true;
-                BtnFinalizar.Enabled = true;
-                BtnCancelar.Enabled = true;
-                BtnSalvar.Enabled = false;
+                ordem.ConsultarOrdem();
+                if (ordem.EmAberto == 1) // status em aberto
+                {
+                    BtnAlterar.Enabled = true;
+                    BtnFinalizar.Enabled = true;
+                    BtnCancelar.Enabled = true;
+                    BtnSalvar.Enabled = false;
+                }
+                else
+                {
+                    BtnAlterar.Enabled = true;
+                    BtnFinalizar.Enabled = false;
+                    BtnCancelar.Enabled = false;
+                    BtnSalvar.Enabled = false;
+                }
+
+                DtData.Enabled = false;
+                TxtIdCliente.ReadOnly = true;
+                MTxtValor.ReadOnly = true;
+                LbListaDePets.Enabled = false;
+                TxtAdicionarProcedimento.ReadOnly = true;
+                BtnAdicionarInsumo.Enabled = false;
+                btnRemoverInsumo.Enabled = false;
+                LbProcedimentos.Enabled = false;
+                TxtCodInsumo.ReadOnly = true;
+                btnPesquisaInsumo.Enabled = false;
+                btnRemoverInsumo.Enabled = false;
+                BtnAdicionarInsumo.Enabled = false;
+                btnRemoverProcedimento.Enabled = false;
+                BtnAdicionarProcedimento.Enabled = false;
+                BtnBuscarCliente.Enabled = false;
 
                 //preencher campos
                 TxtCodigoOrdem.Text = ordem.Id.ToString();
-                ordem.ConsultarOrdem();
+
                 DtData.MinDate = Convert.ToDateTime(ordem.Data.ToString("dd/MM/yyyy"));
                 DtData.Value = ordem.Data;
 
@@ -161,10 +190,10 @@ namespace PetShop.src.Forms
                 {
                     MTxtValor.Text = ordem.Valor.ToString();
                 }
-                
+
 
                 BuscaDeCliente(ordem.IdCliente);
-                
+
                 for (int i = 0; i < LbListaDePets.Items.Count; i++)
                 {
                     Pets pet = c.PetsDoCliente[i];
@@ -174,8 +203,15 @@ namespace PetShop.src.Forms
                         PreencherCamposPets(LbListaDePets.SelectedIndex);
                     }
                 }
-                
-                
+
+                string[] procedimentos = ordem.Procedimento.Split(" ; ");
+                foreach (var item in procedimentos)
+                {
+                    if (!string.IsNullOrWhiteSpace(item))
+                    {
+                        LbProcedimentos.Items.Add(item);
+                    }
+                }
             }
         }
 
@@ -188,7 +224,10 @@ namespace PetShop.src.Forms
         {
             if ((Keys)e.KeyChar == Keys.Enter)
             {
-                BuscaDeCliente(Convert.ToInt32(TxtIdCliente.Text));
+                if (!string.IsNullOrWhiteSpace(TxtIdCliente.Text))
+                {
+                    BuscaDeCliente(Convert.ToInt32(TxtIdCliente.Text));
+                }
             }
         }
 
@@ -209,7 +248,6 @@ namespace PetShop.src.Forms
                     return true;
                 }
             }
-
             return false;
         }
 
@@ -266,19 +304,38 @@ namespace PetShop.src.Forms
                 ObterValor(MTxtValor.Text) != 00.0M && LbProcedimentos.Items.Count > 0
                 && LbListaDePets.SelectedIndex != -1)
             {
-                try{
+                try
+                {
                     string procedimentos = "";
                     foreach (var item in LbProcedimentos.Items)
                     {
                         procedimentos += item.ToString() + " ; ";
                     }
+
                     ordem = new OrdemDeServico(Convert.ToInt32(TxtIdCliente.Text), c.PetsDoCliente[LbListaDePets.SelectedIndex].Id,
                         ObterValor(MTxtValor.Text), DtData.Value, procedimentos);
+                    if (abertoEmEdicao)
+                    {
+                        ordem.Id = Convert.ToInt32(TxtCodigoOrdem.Text);
+                        DialogResult confirmaAlteracao = MessageBox.Show($"Confirma alterações da Ordem de Serviço {ordem.Id}?", "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        if (confirmaAlteracao == DialogResult.Yes)
+                        {
+                            ordem.edicao = true;
+                            ordem.AlterarOrdem();
+                            LimparCampos();
+                            frmCadastroOrdemDeServico_Load(sender, e);
+                        }
+                    }
+                    else
+                    {
+                        ordem.CadastrarOrdem();
 
-                    ordem.cadastrarOrdem();
+                        LimparCampos();
 
-                    LimparCampos();
-                }catch (Exception ex)
+                    }
+
+                }
+                catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
                 }
@@ -316,6 +373,64 @@ namespace PetShop.src.Forms
             {
                 MTxtValor_Leave((Control)sender, e);
             }
+        }
+
+        private void BtnAlterar_Click(object sender, EventArgs e)
+        {
+            abertoEmEdicao = true;
+
+            BtnAlterar.Enabled = false;
+            BtnFinalizar.Enabled = false;
+            BtnCancelar.Enabled = true;
+            BtnSalvar.Enabled = true;
+
+            DtData.Enabled = true;
+            TxtIdCliente.ReadOnly = false;
+            MTxtValor.ReadOnly = false;
+            LbListaDePets.Enabled = true;
+            TxtAdicionarProcedimento.ReadOnly = false;
+            BtnAdicionarInsumo.Enabled = true;
+            btnRemoverInsumo.Enabled = true;
+            LbProcedimentos.Enabled = true;
+            TxtCodInsumo.ReadOnly = false;
+            btnPesquisaInsumo.Enabled = true;
+            btnRemoverInsumo.Enabled = true;
+            BtnAdicionarInsumo.Enabled = true;
+            btnRemoverProcedimento.Enabled = true;
+            BtnAdicionarProcedimento.Enabled = true;
+            BtnBuscarCliente.Enabled = true;
+        }
+
+        private void BtnCancelar_Click(object sender, EventArgs e)
+        {
+            if (abertoEmEdicao)
+            {
+                abertoEmEdicao = false;
+                LimparCampos();
+                frmCadastroOrdemDeServico_Load(sender, e);
+            }
+            else
+            {
+                DialogResult confirmaCancelamento = MessageBox.Show($"Deseja cancelar a Ordem de Serviço {ordem.Id}?", "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (confirmaCancelamento == DialogResult.Yes)
+                {
+                    ordem.CancelarOrdem();
+                }
+            }
+        }
+
+        private void BtnFinalizar_Click(object sender, EventArgs e)
+        {
+            DialogResult confirmaFinalizacao = MessageBox.Show($"Deseja finalizar a Ordem de Serviço {ordem.Id}?", "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (confirmaFinalizacao == DialogResult.Yes)
+            {
+                ordem.finalizarOrdem();
+            }
+        }
+
+        private void pictureBox1_MouseHover(object sender, EventArgs e)
+        {
+            LblObservacoes_MouseHover(sender, e);
         }
     }
 }

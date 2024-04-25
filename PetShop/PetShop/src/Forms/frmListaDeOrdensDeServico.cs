@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.Intrinsics.Arm;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -151,15 +152,11 @@ namespace PetShop.src.Forms
                 cadastroOrdemDeServico.abertoPorListaDeOrdens = true;
                 cadastroOrdemDeServico.ordem.Id = Convert.ToInt32(groupBoxIdOrdem);
                 cadastroOrdemDeServico.Show();
-
             }
-
             if (sender is Label)
             {
                 // Obtém o GroupBox pai do Label
                 System.Windows.Forms.GroupBox groupBox = ((sender as Label).Parent) as System.Windows.Forms.GroupBox;
-
-                
                 if (groupBox != null)
                 {
                     SelecionarCard(groupBox, e);
