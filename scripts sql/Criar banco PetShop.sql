@@ -1,7 +1,13 @@
-begin
-	IF not exists(Select * from sys.databases where name= 'PetShop')
-		create DATABASE PetShop
-END
+-- execute este bloco primeiro para criar o banco
+
+BEGIN
+	IF NOT EXISTS (SELECT * FROM sys.databases WHERE name = 'PetShop')
+	BEGIN
+		CREATE DATABASE PetShop;
+	END
+END;
+
+-- após criar o branco, execute o resto do script
 
 begin
 use PetSHOP
@@ -52,7 +58,7 @@ IF Not exists(Select * FROM sys.tables where name = 'Insumos')
 CREATE TABLE Insumos(
 	Id int Primary KEY IDENTITY (1,1) Not null,
 	Nome nvarchar (100) NOT NULL,
-	Custo decimal Not Null
+	Custo decimal (9,2) Not Null
 	
 )
 

@@ -67,12 +67,14 @@ namespace PetShop.src.Forms
                 }
                 groupBox.Size = new Size(300, 146);
                 groupBox.DoubleClick += SelecionarCard;
+                groupBox.BackColor = Color.GhostWhite;
 
                 PnlCards.Controls.Add(groupBox);
                 //adiciona os labels com as informações da Ordem de serviço
                 Label labelCLiente = new Label();
                 labelCLiente.Text = $"Cliente: {item.NomeCliente}";
                 labelCLiente.AutoSize = true;
+                labelCLiente.Font = new Font("Verdana", 9, FontStyle.Regular);
                 labelCLiente.Location = new Point(20, 20);
                 labelCLiente.DoubleClick += SelecionarCard;
                 groupBox.Controls.Add(labelCLiente);
@@ -80,21 +82,24 @@ namespace PetShop.src.Forms
                 Label labelPet = new Label();
                 labelPet.Text = $"Pet: {item.NomePet}";
                 labelPet.AutoSize = true;
-                labelPet.Location = new Point(20, 40);
+                labelPet.Font = new Font("Verdana", 9, FontStyle.Regular);
+                labelPet.Location = new Point(20, 50);
                 labelPet.DoubleClick += SelecionarCard;
                 groupBox.Controls.Add(labelPet);
 
                 Label labelValor = new Label();
                 labelValor.Text = $"Valor: R$ {item.Valor}";
                 labelValor.AutoSize = true;
-                labelValor.Location = new Point(20, 60);
+                labelValor.Font = new Font("Verdana", 9, FontStyle.Regular);
+                labelValor.Location = new Point(20, 80);
                 labelValor.DoubleClick += SelecionarCard;
                 groupBox.Controls.Add(labelValor);
 
                 Label labelData = new Label();
                 labelData.AutoSize = true;
                 labelData.Text = $"Horário: {item.Data.ToString("dd/MM/yyyy - HH:mm")}";
-                labelData.Location = new Point(20, 80);
+                labelData.Font = new Font("Verdana", 9, FontStyle.Regular);
+                labelData.Location = new Point(20, 110);
                 labelData.DoubleClick += SelecionarCard;
                 groupBox.Controls.Add(labelData);
 

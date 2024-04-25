@@ -29,104 +29,137 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmTelaInicial));
-            ListaDeClientes = new Button();
-            CadastrarCliente = new Button();
-            CadastrarPet = new Button();
-            BtnCadastroPedidos = new Button();
-            BtnListaDeOrdens = new Button();
             PnlMenuLateral = new Panel();
+            PnlBotoes = new Panel();
+            btnListarOrdem = new Button();
+            btnCadastrarOrdem = new Button();
+            BtnInformacoesDoCliente = new Button();
+            BtnCadastrarPet = new Button();
+            btnCadastrarCliente = new Button();
+            PnlLogo = new Panel();
+            imgLogo = new PictureBox();
+            PnlMenuLateral.SuspendLayout();
+            PnlBotoes.SuspendLayout();
+            PnlLogo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)imgLogo).BeginInit();
             SuspendLayout();
-            // 
-            // ListaDeClientes
-            // 
-            ListaDeClientes.BackColor = Color.Aquamarine;
-            ListaDeClientes.FlatAppearance.BorderColor = Color.DodgerBlue;
-            ListaDeClientes.FlatAppearance.BorderSize = 2;
-            ListaDeClientes.FlatStyle = FlatStyle.Flat;
-            ListaDeClientes.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            ListaDeClientes.ForeColor = SystemColors.ControlText;
-            ListaDeClientes.Location = new Point(410, 12);
-            ListaDeClientes.Name = "ListaDeClientes";
-            ListaDeClientes.Size = new Size(188, 103);
-            ListaDeClientes.TabIndex = 1;
-            ListaDeClientes.Text = "Lista de Clientes";
-            ListaDeClientes.UseVisualStyleBackColor = false;
-            ListaDeClientes.Click += ListaDeClientes_Click;
-            // 
-            // CadastrarCliente
-            // 
-            CadastrarCliente.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            CadastrarCliente.BackColor = Color.Aquamarine;
-            CadastrarCliente.FlatAppearance.BorderColor = Color.DodgerBlue;
-            CadastrarCliente.FlatAppearance.BorderSize = 2;
-            CadastrarCliente.FlatStyle = FlatStyle.Flat;
-            CadastrarCliente.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            CadastrarCliente.ForeColor = SystemColors.ControlText;
-            CadastrarCliente.Location = new Point(676, 12);
-            CadastrarCliente.Name = "CadastrarCliente";
-            CadastrarCliente.Size = new Size(188, 103);
-            CadastrarCliente.TabIndex = 2;
-            CadastrarCliente.Text = "Cadastrar Cliente";
-            CadastrarCliente.UseVisualStyleBackColor = false;
-            CadastrarCliente.Click += CadastrarCliente_Click;
-            // 
-            // CadastrarPet
-            // 
-            CadastrarPet.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            CadastrarPet.BackColor = Color.Aquamarine;
-            CadastrarPet.FlatAppearance.BorderColor = Color.DodgerBlue;
-            CadastrarPet.FlatAppearance.BorderSize = 2;
-            CadastrarPet.FlatStyle = FlatStyle.Flat;
-            CadastrarPet.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            CadastrarPet.ForeColor = SystemColors.ControlText;
-            CadastrarPet.Location = new Point(410, 169);
-            CadastrarPet.Name = "CadastrarPet";
-            CadastrarPet.Size = new Size(188, 103);
-            CadastrarPet.TabIndex = 3;
-            CadastrarPet.Text = "Cadastrar Pet";
-            CadastrarPet.UseVisualStyleBackColor = false;
-            CadastrarPet.Click += CadastrarPet_Click;
-            // 
-            // BtnCadastroPedidos
-            // 
-            BtnCadastroPedidos.BackColor = Color.Aquamarine;
-            BtnCadastroPedidos.FlatAppearance.BorderColor = Color.DodgerBlue;
-            BtnCadastroPedidos.FlatAppearance.BorderSize = 2;
-            BtnCadastroPedidos.FlatStyle = FlatStyle.Flat;
-            BtnCadastroPedidos.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            BtnCadastroPedidos.ForeColor = SystemColors.ControlText;
-            BtnCadastroPedidos.Location = new Point(410, 341);
-            BtnCadastroPedidos.Name = "BtnCadastroPedidos";
-            BtnCadastroPedidos.Size = new Size(188, 103);
-            BtnCadastroPedidos.TabIndex = 4;
-            BtnCadastroPedidos.Text = "Cadastro de Ordem de Serviço";
-            BtnCadastroPedidos.UseVisualStyleBackColor = false;
-            BtnCadastroPedidos.Click += BtnCadastroPedidos_Click;
-            // 
-            // BtnListaDeOrdens
-            // 
-            BtnListaDeOrdens.BackColor = Color.Aquamarine;
-            BtnListaDeOrdens.FlatAppearance.BorderColor = Color.DodgerBlue;
-            BtnListaDeOrdens.FlatAppearance.BorderSize = 2;
-            BtnListaDeOrdens.FlatStyle = FlatStyle.Flat;
-            BtnListaDeOrdens.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            BtnListaDeOrdens.ForeColor = SystemColors.ControlText;
-            BtnListaDeOrdens.Location = new Point(676, 341);
-            BtnListaDeOrdens.Name = "BtnListaDeOrdens";
-            BtnListaDeOrdens.Size = new Size(188, 103);
-            BtnListaDeOrdens.TabIndex = 5;
-            BtnListaDeOrdens.Text = "Ordens de Serviço";
-            BtnListaDeOrdens.UseVisualStyleBackColor = false;
-            BtnListaDeOrdens.Click += BtnListaDeOrdens_Click;
             // 
             // PnlMenuLateral
             // 
             PnlMenuLateral.BackColor = Color.FromArgb(46, 139, 201);
+            PnlMenuLateral.Controls.Add(PnlBotoes);
+            PnlMenuLateral.Controls.Add(PnlLogo);
             PnlMenuLateral.Dock = DockStyle.Left;
             PnlMenuLateral.Location = new Point(0, 0);
             PnlMenuLateral.Name = "PnlMenuLateral";
             PnlMenuLateral.Size = new Size(232, 729);
             PnlMenuLateral.TabIndex = 6;
+            // 
+            // PnlBotoes
+            // 
+            PnlBotoes.Controls.Add(btnListarOrdem);
+            PnlBotoes.Controls.Add(btnCadastrarOrdem);
+            PnlBotoes.Controls.Add(BtnInformacoesDoCliente);
+            PnlBotoes.Controls.Add(BtnCadastrarPet);
+            PnlBotoes.Controls.Add(btnCadastrarCliente);
+            PnlBotoes.Dock = DockStyle.Fill;
+            PnlBotoes.Font = new Font("Lucida Fax", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            PnlBotoes.Location = new Point(0, 100);
+            PnlBotoes.Name = "PnlBotoes";
+            PnlBotoes.Size = new Size(232, 629);
+            PnlBotoes.TabIndex = 1;
+            // 
+            // btnListarOrdem
+            // 
+            btnListarOrdem.Dock = DockStyle.Top;
+            btnListarOrdem.FlatAppearance.BorderSize = 0;
+            btnListarOrdem.FlatAppearance.MouseOverBackColor = Color.FromArgb(102, 153, 204);
+            btnListarOrdem.FlatStyle = FlatStyle.Flat;
+            btnListarOrdem.Location = new Point(0, 180);
+            btnListarOrdem.Name = "btnListarOrdem";
+            btnListarOrdem.Size = new Size(232, 45);
+            btnListarOrdem.TabIndex = 4;
+            btnListarOrdem.Text = "Lista de Ordens de Serviço";
+            btnListarOrdem.UseVisualStyleBackColor = true;
+            btnListarOrdem.Click += btnListarOrdem_Click;
+            // 
+            // btnCadastrarOrdem
+            // 
+            btnCadastrarOrdem.Dock = DockStyle.Top;
+            btnCadastrarOrdem.FlatAppearance.BorderSize = 0;
+            btnCadastrarOrdem.FlatAppearance.MouseOverBackColor = Color.FromArgb(102, 153, 204);
+            btnCadastrarOrdem.FlatStyle = FlatStyle.Flat;
+            btnCadastrarOrdem.Location = new Point(0, 135);
+            btnCadastrarOrdem.Name = "btnCadastrarOrdem";
+            btnCadastrarOrdem.Size = new Size(232, 45);
+            btnCadastrarOrdem.TabIndex = 3;
+            btnCadastrarOrdem.Text = "Cadastro de Ordem de Serviço";
+            btnCadastrarOrdem.UseVisualStyleBackColor = true;
+            btnCadastrarOrdem.Click += btnCadastrarOrdem_Click;
+            // 
+            // BtnInformacoesDoCliente
+            // 
+            BtnInformacoesDoCliente.Dock = DockStyle.Top;
+            BtnInformacoesDoCliente.FlatAppearance.BorderSize = 0;
+            BtnInformacoesDoCliente.FlatAppearance.MouseOverBackColor = Color.FromArgb(102, 153, 204);
+            BtnInformacoesDoCliente.FlatStyle = FlatStyle.Flat;
+            BtnInformacoesDoCliente.Location = new Point(0, 90);
+            BtnInformacoesDoCliente.Name = "BtnInformacoesDoCliente";
+            BtnInformacoesDoCliente.Size = new Size(232, 45);
+            BtnInformacoesDoCliente.TabIndex = 2;
+            BtnInformacoesDoCliente.Text = "Informações do Cliente";
+            BtnInformacoesDoCliente.UseVisualStyleBackColor = true;
+            BtnInformacoesDoCliente.Click += BtnInformacoesDoCliente_Click;
+            // 
+            // BtnCadastrarPet
+            // 
+            BtnCadastrarPet.Dock = DockStyle.Top;
+            BtnCadastrarPet.FlatAppearance.BorderSize = 0;
+            BtnCadastrarPet.FlatAppearance.MouseOverBackColor = Color.FromArgb(102, 153, 204);
+            BtnCadastrarPet.FlatStyle = FlatStyle.Flat;
+            BtnCadastrarPet.Location = new Point(0, 45);
+            BtnCadastrarPet.Name = "BtnCadastrarPet";
+            BtnCadastrarPet.Size = new Size(232, 45);
+            BtnCadastrarPet.TabIndex = 1;
+            BtnCadastrarPet.Text = "Cadastrar Pet";
+            BtnCadastrarPet.UseVisualStyleBackColor = true;
+            BtnCadastrarPet.Click += BtnCadastrarPet_Click;
+            // 
+            // btnCadastrarCliente
+            // 
+            btnCadastrarCliente.Dock = DockStyle.Top;
+            btnCadastrarCliente.FlatAppearance.BorderSize = 0;
+            btnCadastrarCliente.FlatAppearance.MouseOverBackColor = Color.FromArgb(102, 153, 204);
+            btnCadastrarCliente.FlatStyle = FlatStyle.Flat;
+            btnCadastrarCliente.Location = new Point(0, 0);
+            btnCadastrarCliente.Name = "btnCadastrarCliente";
+            btnCadastrarCliente.Size = new Size(232, 45);
+            btnCadastrarCliente.TabIndex = 0;
+            btnCadastrarCliente.Text = "Cadastrar Cliente";
+            btnCadastrarCliente.UseVisualStyleBackColor = true;
+            btnCadastrarCliente.Click += btnCadastrarCliente_Click;
+            // 
+            // PnlLogo
+            // 
+            PnlLogo.BackgroundImageLayout = ImageLayout.None;
+            PnlLogo.Controls.Add(imgLogo);
+            PnlLogo.Dock = DockStyle.Top;
+            PnlLogo.Location = new Point(0, 0);
+            PnlLogo.Name = "PnlLogo";
+            PnlLogo.RightToLeft = RightToLeft.Yes;
+            PnlLogo.Size = new Size(232, 100);
+            PnlLogo.TabIndex = 0;
+            // 
+            // imgLogo
+            // 
+            imgLogo.BackgroundImage = Properties.Resources.logotipo;
+            imgLogo.BackgroundImageLayout = ImageLayout.Center;
+            imgLogo.Dock = DockStyle.Left;
+            imgLogo.Location = new Point(0, 0);
+            imgLogo.Name = "imgLogo";
+            imgLogo.Size = new Size(66, 100);
+            imgLogo.TabIndex = 0;
+            imgLogo.TabStop = false;
             // 
             // frmTelaInicial
             // 
@@ -135,26 +168,27 @@
             BackColor = Color.FromArgb(102, 153, 204);
             ClientSize = new Size(1008, 729);
             Controls.Add(PnlMenuLateral);
-            Controls.Add(BtnListaDeOrdens);
-            Controls.Add(BtnCadastroPedidos);
-            Controls.Add(CadastrarPet);
-            Controls.Add(CadastrarCliente);
-            Controls.Add(ListaDeClientes);
             Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
             Name = "frmTelaInicial";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Tela Inicial";
+            PnlMenuLateral.ResumeLayout(false);
+            PnlBotoes.ResumeLayout(false);
+            PnlLogo.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)imgLogo).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
-
-        private Button ListaDeClientes;
-        private Button CadastrarCliente;
-        private Button CadastrarPet;
-        private Button BtnCadastroPedidos;
-        private Button BtnListaDeOrdens;
         private Panel PnlMenuLateral;
+        private Panel PnlLogo;
+        private PictureBox imgLogo;
+        private Panel PnlBotoes;
+        private Button btnListarOrdem;
+        private Button btnCadastrarOrdem;
+        private Button BtnInformacoesDoCliente;
+        private Button BtnCadastrarPet;
+        private Button btnCadastrarCliente;
     }
 }
