@@ -251,7 +251,7 @@ namespace PetShop.src.Models
 
         public void ConsultaCliente(int idCliente)
         {
-            string comando = $"SELECT TOP 100 * FROM Clientes WHERE id = {idCliente}";
+            string comando = $"SELECT * FROM Clientes WHERE id = {idCliente}";
 
             ConexaoBD conexao = new ConexaoBD();
             SqlCommand comandoSql = new SqlCommand();

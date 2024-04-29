@@ -38,6 +38,7 @@
             btnCadastrarCliente = new Button();
             PnlLogo = new Panel();
             imgLogo = new PictureBox();
+            btnCadastroDeInsumo = new Button();
             PnlMenuLateral.SuspendLayout();
             PnlBotoes.SuspendLayout();
             PnlLogo.SuspendLayout();
@@ -57,6 +58,7 @@
             // 
             // PnlBotoes
             // 
+            PnlBotoes.Controls.Add(btnCadastroDeInsumo);
             PnlBotoes.Controls.Add(btnListarOrdem);
             PnlBotoes.Controls.Add(btnCadastrarOrdem);
             PnlBotoes.Controls.Add(BtnInformacoesDoCliente);
@@ -161,6 +163,21 @@
             imgLogo.TabIndex = 0;
             imgLogo.TabStop = false;
             // 
+            // btnCadastroDeInsumo
+            // 
+            btnCadastroDeInsumo.AccessibleDescription = "";
+            btnCadastroDeInsumo.Dock = DockStyle.Top;
+            btnCadastroDeInsumo.FlatAppearance.BorderSize = 0;
+            btnCadastroDeInsumo.FlatAppearance.MouseOverBackColor = Color.FromArgb(102, 153, 204);
+            btnCadastroDeInsumo.FlatStyle = FlatStyle.Flat;
+            btnCadastroDeInsumo.Location = new Point(0, 225);
+            btnCadastroDeInsumo.Name = "btnCadastroDeInsumo";
+            btnCadastroDeInsumo.Size = new Size(232, 45);
+            btnCadastroDeInsumo.TabIndex = 5;
+            btnCadastroDeInsumo.Text = "Cadastro de Insumo";
+            btnCadastroDeInsumo.UseVisualStyleBackColor = true;
+            btnCadastroDeInsumo.Click += btnCadastroDeInsumo_Click;
+            // 
             // frmTelaInicial
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -190,5 +207,6 @@
         private Button BtnInformacoesDoCliente;
         private Button BtnCadastrarPet;
         private Button btnCadastrarCliente;
+        private Button btnCadastroDeInsumo;
     }
 }
