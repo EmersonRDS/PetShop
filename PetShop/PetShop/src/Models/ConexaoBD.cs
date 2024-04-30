@@ -8,7 +8,7 @@ namespace PetShop.src.Models
 
         public SqlConnection AbrirConexaoBD()
         {
-            string stringDeConexao = "Data Source=<Instancia do banco>;Initial Catalog=PetShop;Integrated Security=true";
+            string stringDeConexao = "Data Source=<sua instância de bacno>;Initial Catalog=PetShop;Integrated Security=true";
             try
             {
                 conexao = new SqlConnection(stringDeConexao);
@@ -33,6 +33,21 @@ namespace PetShop.src.Models
                 MessageBox.Show(ex.Message);
             }
 
+        }
+
+        public string BeginTran()
+        {
+            return "BEGIN TRAN";
+        }
+
+        public string RollBack()
+        {
+            return "ROLLBACK";
+        }
+
+        public string Commit()
+        {
+            return "COMMIT";
         }
     }
 

@@ -86,6 +86,7 @@
             TxtCodInusmo.Size = new Size(64, 23);
             TxtCodInusmo.TabIndex = 31;
             TxtCodInusmo.TextChanged += TxtCodInusmo_TextChanged;
+            TxtCodInusmo.KeyPress += TxtCodInusmo_KeyPress;
             // 
             // lblCodInsumo
             // 
@@ -188,6 +189,7 @@
             TxtAdicionarCodigoBarras.Size = new Size(186, 23);
             TxtAdicionarCodigoBarras.TabIndex = 54;
             TxtAdicionarCodigoBarras.TextChanged += TxtAdicionarCodigoBarras_TextChanged;
+            TxtAdicionarCodigoBarras.KeyPress += TxtAdicionarCodigoBarras_KeyPress;
             // 
             // LbCodigoBarras
             // 
@@ -245,6 +247,7 @@
             BtnAlterar.Text = "Alterar";
             BtnAlterar.TextAlign = ContentAlignment.MiddleRight;
             BtnAlterar.UseVisualStyleBackColor = true;
+            BtnAlterar.Click += BtnAlterar_Click;
             // 
             // BtnSalvar
             // 

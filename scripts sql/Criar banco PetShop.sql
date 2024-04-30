@@ -61,10 +61,18 @@ CREATE TABLE Insumos(
 	Id int Primary KEY IDENTITY (1,1) Not null,
 	Nome nvarchar (100) NOT NULL,
 	Custo decimal (9,2) NOT NULL,
-	CodBarras varchar (15),
 	Estoque float NOT NULL,
 	UnidadeMedida varchar (5),
 	Volume float,
+)
+
+IF Not exists(Select * FROM sys.tables where name = 'BarrasInsumos')
+CREATE TABLE BarrasInsumos(
+	Id int Primary KEY IDENTITY (1,1) NOT NULL,
+	IdInsumo int NOT NULL,
+	CodBarras varchar (15) NOT NULL,
+	
+	CONSTRAINT FK_BarrasInsumos_Insumos FOREIGN KEY (IdInsumo) REFERENCES Insumos(Id),
 )
 
 IF Not exists(Select * FROM sys.tables where name = 'InsumosOrdemDeServico')

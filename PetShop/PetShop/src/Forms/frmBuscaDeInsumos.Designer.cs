@@ -56,6 +56,7 @@
             BtnConfirmar.TabIndex = 12;
             BtnConfirmar.Text = "Confirmar";
             BtnConfirmar.UseVisualStyleBackColor = true;
+            BtnConfirmar.Click += BtnConfirmar_Click;
             // 
             // BtnBuscar
             // 
@@ -65,6 +66,7 @@
             BtnBuscar.TabIndex = 11;
             BtnBuscar.Text = "Buscar";
             BtnBuscar.UseVisualStyleBackColor = true;
+            BtnBuscar.Click += BtnBuscar_Click;
             // 
             // TxtConteudoParaFiltro
             // 
@@ -73,6 +75,7 @@
             TxtConteudoParaFiltro.PlaceholderText = "Conteúdo para busca";
             TxtConteudoParaFiltro.Size = new Size(268, 23);
             TxtConteudoParaFiltro.TabIndex = 10;
+            TxtConteudoParaFiltro.KeyPress += TxtConteudoParaFiltro_KeyPress;
             // 
             // LblFiltro
             // 
@@ -87,7 +90,7 @@
             // 
             CbFiltro.DisplayMember = "Nome";
             CbFiltro.FormattingEnabled = true;
-            CbFiltro.Items.AddRange(new object[] { "Nome", "Telefone" });
+            CbFiltro.Items.AddRange(new object[] { "Nome", "Cod. Barras" });
             CbFiltro.Location = new Point(12, 418);
             CbFiltro.Name = "CbFiltro";
             CbFiltro.Size = new Size(121, 23);
@@ -116,6 +119,7 @@
             DtgListaDeInsumos.ShowEditingIcon = false;
             DtgListaDeInsumos.Size = new Size(537, 378);
             DtgListaDeInsumos.TabIndex = 7;
+            DtgListaDeInsumos.CellDoubleClick += DtgListaDeInsumos_CellDoubleClick;
             // 
             // frmBuscaDeInsumos
             // 
@@ -132,6 +136,7 @@
             Controls.Add(DtgListaDeInsumos);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "frmBuscaDeInsumos";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Busca de Insumos";
             ((System.ComponentModel.ISupportInitialize)DtgListaDeInsumos).EndInit();
             ResumeLayout(false);
