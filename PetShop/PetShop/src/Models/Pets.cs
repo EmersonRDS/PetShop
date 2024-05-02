@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using System.Data.SqlClient;
+﻿using System.Data.SqlClient;
 
 namespace PetShop.src.Models
 {
@@ -22,7 +21,8 @@ namespace PetShop.src.Models
 
         public bool update = false;
 
-        public Pets(string nome, int idTutor, string raca, string tipoDePelagem, DateTime dataDeNascimento, string observacoes) {
+        public Pets(string nome, int idTutor, string raca, string tipoDePelagem, DateTime dataDeNascimento, string observacoes)
+        {
             Nome = nome;
             IdTutor = idTutor;
             Raca = raca;
@@ -45,7 +45,7 @@ namespace PetShop.src.Models
                 comando += $"Nome = '{Nome}', IdCliente = {IdTutor}, Raca = '{Raca}', Vacinado = {Vacinado}, " +
                     $"TipoPelagem = '{TipoDePelagem}', Porte = '{Porte}', Alergia = {PossuiAlergia}";
             }
-            
+
 
             if (DataDeNascimento.ToString("dd/MM/yyyy") == DateTime.Today.ToString("dd/MM/yyyy"))
             {
@@ -72,7 +72,7 @@ namespace PetShop.src.Models
                 {
                     comando += ", NULL";
                 }
-                
+
             }
             else
             {
@@ -121,7 +121,8 @@ namespace PetShop.src.Models
 
         }
 
-        public void AlterarPet(){
+        public void AlterarPet()
+        {
             ConexaoBD conexao = new ConexaoBD();
             SqlCommand comandoSql = new SqlCommand();
             this.update = true;

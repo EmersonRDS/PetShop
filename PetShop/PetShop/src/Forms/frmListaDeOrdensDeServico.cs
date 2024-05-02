@@ -1,16 +1,4 @@
 ﻿using PetShop.src.Models;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Runtime.Intrinsics.Arm;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Windows.Forms.VisualStyles;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
 namespace PetShop.src.Forms
 {
@@ -131,7 +119,8 @@ namespace PetShop.src.Forms
             if (CbStatus.SelectedItem.ToString() == "Em Aberto")
             {
                 status = 1;
-            }else if(CbStatus.SelectedItem.ToString() == "Fechado")
+            }
+            else if (CbStatus.SelectedItem.ToString() == "Fechado")
             {
                 status = 2;
             }
@@ -140,7 +129,7 @@ namespace PetShop.src.Forms
                 status = 0;
             }
 
-            List<OrdemDeServico> listaOrdens = ordem.ConsultarOrdens(DtDataInicial.Value,DtDataFinal.Value,CBfiltro.SelectedItem.ToString(),TxtFiltro.Text,status);
+            List<OrdemDeServico> listaOrdens = ordem.ConsultarOrdens(DtDataInicial.Value, DtDataFinal.Value, CBfiltro.SelectedItem.ToString(), TxtFiltro.Text, status);
 
             CriarOrdem(listaOrdens);
 

@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Runtime.Intrinsics.Arm;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Data.SqlClient;
 
 namespace PetShop.src.Models
 {
@@ -15,15 +8,25 @@ namespace PetShop.src.Models
         public string Nome { get; set; }
         public decimal Custo { get; set; }
         public string CodBarras { get; set; }
-        public double Estoque{ get; set; }
-        public string UnidadeMedida{ get; set; }
-        public double Volume {  get; set; }
+        public List<CodigoDeBarras> ListaCodBarras = new List<CodigoDeBarras>();
+        public double Estoque { get; set; }
+        public string UnidadeMedida { get; set; }
+        public double Volume { get; set; }
+        private bool update = false;
 
         public Insumo() { }
         public Insumo(string nome, string codBarras, string unidadeMedida, double Volume)
         {
             this.Nome = nome;
             this.CodBarras = codBarras;
+            this.UnidadeMedida = unidadeMedida;
+            this.Volume = Volume;
+        }
+
+        public Insumo(int id,string nome, string unidadeMedida, double Volume)
+        {
+            this.Id = id;
+            this.Nome = nome;
             this.UnidadeMedida = unidadeMedida;
             this.Volume = Volume;
         }
@@ -92,10 +95,10 @@ namespace PetShop.src.Models
 
             }
 
-            comando+="GROUP BY I.id, I.Custo, I.Estoque, I.Nome, I.UnidadeMedida, I.Volume ";
-                
+            comando += "GROUP BY I.id, I.Custo, I.Estoque, I.Nome, I.UnidadeMedida, I.Volume ";
 
-            
+
+
             ConexaoBD conexao = new ConexaoBD();
             SqlCommand comandoSql = new SqlCommand();
 
@@ -133,11 +136,8 @@ namespace PetShop.src.Models
 
         public bool ConsultaInsumo(int idInsumo)
         {
-            string comando = $"SELECT DISTINCT I.*, STRING_AGG(barras.CodBarras, ' , ') AS CodigosBarras " +
-                "FROM Insumos as I " +
-                "INNER JOIN BarrasInsumos as barras ON I.id = barras.IdInsumo " +
-                $"WHERE I.id = {idInsumo} " +
-                $"GROUP BY I.id, I.Custo, I.Estoque, I.Nome, I.UnidadeMedida, I.Volume ";
+            ListaCodBarras.Clear();
+            string comando = $"SELECT * FROM Insumos WHERE id = {idInsumo} ";
 
             ConexaoBD conexao = new ConexaoBD();
             SqlCommand comandoSql = new SqlCommand();
@@ -158,12 +158,29 @@ namespace PetShop.src.Models
                         this.Estoque = Convert.ToDouble(reader["Estoque"].ToString());
                         this.UnidadeMedida = reader["UnidadeMedida"].ToString();
                         this.Volume = Convert.ToDouble(reader["Volume"].ToString());
-                        this.CodBarras = reader["CodigosBarras"].ToString();
                     }
                 }
                 else
                 {
                     throw new Exception($"Insumo Id {idInsumo} não encontrado");
+                }
+
+                reader.Close();
+
+                comando = $"SELECT * FROM BarrasInsumos WHERE IdInsumo = {idInsumo} ";
+
+                comandoSql.CommandText = comando;
+                reader = comandoSql.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        CodigoDeBarras codigoDeBarras = new CodigoDeBarras();
+                        codigoDeBarras.Id = Convert.ToInt32(reader["Id"]);
+                        codigoDeBarras.IdInsumo = Convert.ToInt32(reader["IdInsumo"]);
+                        codigoDeBarras.Barras = reader["CodBarras"].ToString();
+                        ListaCodBarras.Add(codigoDeBarras);
+                    }
                 }
 
                 return true;
@@ -182,18 +199,55 @@ namespace PetShop.src.Models
         public string PreparaValores()
         {
             string comando = "";
-            //Nome
-            comando += $"'{Nome}',";
-            //Custo
-            comando += " 0,";
-            //Estoque
-            comando += " 0,";
-            //UnidadeMedida
-            comando += $"'{UnidadeMedida}',";
-            //Volume
-            comando += $"{Volume}";
+            if (update)
+            {
+                comando += $"Nome = '{Nome}',";
+                comando += $"UnidadeMedida = '{UnidadeMedida}',";
+                comando += $"Volume = {Volume}";
+            }
+            else
+            {
+                comando += $"'{Nome}',";
+                comando += $"'{UnidadeMedida}',";
+                comando += $"'{Volume}',";
+                //Custo
+                comando += " 0,";
+                //Estoque
+                comando += " 0";
+            }
 
             return comando;
+        }
+
+        public void AlterarInsumo()
+        {
+            ConexaoBD conexao = new ConexaoBD();
+            SqlCommand comandoSql = new SqlCommand();
+            this.update = true;
+
+            try
+            {
+                comandoSql.Connection = conexao.AbrirConexaoBD();
+                string valores = PreparaValores();
+
+                string comando = $"UPDATE Insumos SET {valores} " +
+                    $"WHERE Id = {this.Id}";
+
+                comandoSql.CommandText = comando;
+
+                comandoSql.ExecuteNonQuery();
+                conexao.FecharConexaoBD();
+
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                conexao.FecharConexaoBD();
+            }
         }
 
         public void CadastrarInsumo()
@@ -207,7 +261,7 @@ namespace PetShop.src.Models
                 comandoSql.CommandText = conexao.BeginTran();
                 comandoSql.ExecuteNonQuery();
 
-                string campos = "Nome, Custo, Estoque, UnidadeMedida, Volume";
+                string campos = "Nome, UnidadeMedida, Volume, Custo, Estoque";
                 string valores = PreparaValores();
 
                 string comando = $"INSERT INTO Insumos ({campos}) VALUES ({valores}); SELECT SCOPE_IDENTITY();";

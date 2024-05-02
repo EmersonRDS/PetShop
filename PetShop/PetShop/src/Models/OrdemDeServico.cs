@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data.SqlClient;
 
 namespace PetShop.src.Models
 {
@@ -12,11 +7,11 @@ namespace PetShop.src.Models
         public int Id { get; set; }
         public int IdCliente { get; set; }
         public string NomeCliente { get; set; }
-        public int IdPet {  get; set; }
+        public int IdPet { get; set; }
         public string NomePet { get; set; }
         public int EmAberto { get; set; }
         public decimal Valor { get; set; }
-        public DateTime Data {  get; set; }
+        public DateTime Data { get; set; }
         public string Procedimento { get; set; }
         public bool edicao = false;
 
@@ -61,11 +56,12 @@ namespace PetShop.src.Models
 
                 comando += $", 1";
             }
-            
+
             return comando;
         }
 
-        public void CadastrarOrdem() {
+        public void CadastrarOrdem()
+        {
             ConexaoBD conexao = new ConexaoBD();
             SqlCommand comandoSql = new SqlCommand();
 
@@ -95,10 +91,10 @@ namespace PetShop.src.Models
 
         }
 
-        public List<OrdemDeServico> ConsultarOrdens(DateTime dataInicial, DateTime dataFinal, string filtro, string filtroConteudo,int emAberto)
+        public List<OrdemDeServico> ConsultarOrdens(DateTime dataInicial, DateTime dataFinal, string filtro, string filtroConteudo, int emAberto)
         {
 
-            List<OrdemDeServico> ordemDeServicos= new List<OrdemDeServico>();
+            List<OrdemDeServico> ordemDeServicos = new List<OrdemDeServico>();
 
             string comando = "SELECT C.nome ClienteNome, P.Nome PetNome, OS.Id IdOrdem, OS.Valor, OS.Data " +
                 "FROM OrdemDeServico AS OS " +
@@ -126,7 +122,7 @@ namespace PetShop.src.Models
 
             try
             {
-                
+
                 SqlCommand comandoSql = new SqlCommand();
                 comandoSql.Connection = conexao.AbrirConexaoBD();
                 comandoSql.CommandText = comando;
@@ -138,10 +134,10 @@ namespace PetShop.src.Models
                     OrdemDeServico ordem = new OrdemDeServico();
                     ordem.Id = Convert.ToInt32(reader["IdOrdem"]);
                     ordem.NomeCliente = reader["ClienteNome"].ToString();
-                    ordem.NomePet= reader["PetNome"].ToString();
+                    ordem.NomePet = reader["PetNome"].ToString();
                     ordem.Valor = Convert.ToDecimal(reader["Valor"].ToString());
                     ordem.Data = Convert.ToDateTime(reader["data"]);
-                    
+
                     ordemDeServicos.Add(ordem);
                 }
 

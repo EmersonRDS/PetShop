@@ -27,7 +27,8 @@ namespace PetShop.src.Forms
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (!alteraCliente) {
+            if (!alteraCliente)
+            {
                 try
                 {
                     Cliente c = new Cliente(TxtNome.Text, txtTelefone.Text, txtEndereco.Text, txtCidade.Text, txtBairro.Text, TxtObservacoes.Text);
@@ -52,10 +53,10 @@ namespace PetShop.src.Forms
                 {
                     MessageBox.Show(ex.Message);
                 }
-                
+
             }
-            
-            
+
+
         }
 
         private void txtTelefone_TextChanged(object sender, EventArgs e)

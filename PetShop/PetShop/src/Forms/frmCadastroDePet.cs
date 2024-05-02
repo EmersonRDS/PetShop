@@ -91,7 +91,7 @@ namespace PetShop.src.Forms
                 observacoes = TxtObservacoes.Text;
 
                 Pets pets = new Pets(nome, idTutor, raca, tipoDePelo, dataDeNascimento, observacoes);
-                
+
                 //valida porte
                 if (RdbPorteG.Checked)
                 {
@@ -149,7 +149,7 @@ namespace PetShop.src.Forms
                         pets.AlterarPet();
                         Close();
                     }
-                    
+
 
                 }
                 catch (Exception ex)

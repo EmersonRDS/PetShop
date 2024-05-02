@@ -1,13 +1,5 @@
 ﻿using PetShop.src.Models;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace PetShop.src.Forms
 {
@@ -16,6 +8,7 @@ namespace PetShop.src.Forms
         public int dadosRecebidos;
         private bool novoCadastro;
         private bool emEdicao;
+        private Insumo insumo = new Insumo();
         public frmCadastroDeInsumo()
         {
             InitializeComponent();
@@ -23,7 +16,7 @@ namespace PetShop.src.Forms
 
         public void LimparCampos()
         {
-            TxtCodInusmo.Text = string.Empty;
+            TxtCodInsumo.Text = string.Empty;
             TxtCusto.Text = string.Empty;
             TxtDescricaoInsumo.Text = string.Empty;
             TxtEstoqueAtual.Text = string.Empty;
@@ -32,22 +25,22 @@ namespace PetShop.src.Forms
             TxtAdicionarCodigoBarras.Text = string.Empty;
         }
 
-        private void PreencherInsumo(int idInsumo){
+        private void PreencherInsumo(int idInsumo)
+        {
             LimparCampos();
-            Insumo i = new Insumo();
             try
             {
-                bool consultaInsumo = i.ConsultaInsumo(idInsumo);
+                bool consultaInsumo = insumo.ConsultaInsumo(idInsumo);
 
                 if (consultaInsumo)
                 {
-                    TxtCodInusmo.Text = i.Id.ToString();
-                    TxtDescricaoInsumo.Text = i.Nome;
-                    TxtCusto.Text = i.Custo.ToString();
-                    TxtEstoqueAtual.Text = i.Estoque.ToString();
-                    TxtVolume.Text = i.Volume.ToString();
+                    TxtCodInsumo.Text = insumo.Id.ToString();
+                    TxtDescricaoInsumo.Text = insumo.Nome;
+                    TxtCusto.Text = insumo.Custo.ToString();
+                    TxtEstoqueAtual.Text = insumo.Estoque.ToString();
+                    TxtVolume.Text = insumo.Volume.ToString();
 
-                    switch (i.UnidadeMedida)
+                    switch (insumo.UnidadeMedida)
                     {
                         case "Litro":
                             CbUnidadeMedida.SelectedIndex = 0;
@@ -58,12 +51,12 @@ namespace PetShop.src.Forms
                             break;
                     }
 
-                    string[] codBarras = i.CodBarras.Split(" , ");
-                    foreach (var item in codBarras)
+
+                    foreach (CodigoDeBarras item in insumo.ListaCodBarras)
                     {
-                        if (!String.IsNullOrWhiteSpace(item))
+                        if (!String.IsNullOrWhiteSpace(item.ToString()))
                         {
-                            LbCodigoBarras.Items.Add(item);
+                            LbCodigoBarras.Items.Add(item.Barras);
                         }
                     }
                 }
@@ -71,7 +64,7 @@ namespace PetShop.src.Forms
                 {
                     throw new Exception("Digite um ID válido!");
                 }
-                
+
             }
             catch (Exception ex)
             {
@@ -88,7 +81,7 @@ namespace PetShop.src.Forms
                 dadosRecebidos = buscaDeInsumos.idInsumo;
 
                 PreencherInsumo(dadosRecebidos);
-                
+
             }
         }
 
@@ -149,16 +142,17 @@ namespace PetShop.src.Forms
 
         private void TxtCodInusmo_TextChanged(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(TxtCodInusmo.Text))
+            if (!string.IsNullOrEmpty(TxtCodInsumo.Text))
             {
                 // Remove o caracter se nao for numero
-                TxtCodInusmo.Text = new string(TxtCodInusmo.Text.Where(char.IsDigit).ToArray());
+                TxtCodInsumo.Text = new string(TxtCodInsumo.Text.Where(char.IsDigit).ToArray());
             }
         }
 
 
         private void BtnNovo_Click(object sender, EventArgs e)
         {
+            LimparCampos();
             novoCadastro = true;
 
             BtnCancelar.Enabled = true;
@@ -167,6 +161,7 @@ namespace PetShop.src.Forms
             BtnNovo.Enabled = false;
 
             TxtAdicionarCodigoBarras.ReadOnly = false;
+            TxtCodInsumo.ReadOnly = false;
             btnRemoverCodigoBarras.Enabled = true;
             TxtDescricaoInsumo.ReadOnly = false;
             BtnAdicionarCodigoBarras.Enabled = true;
@@ -176,64 +171,115 @@ namespace PetShop.src.Forms
 
         private void BtnCancelar_Click(object sender, EventArgs e)
         {
+            BtnSalvar.Enabled = false;
+            BtnAlterar.Enabled = true;
+            BtnNovo.Enabled = true;
+            BtnCancelar.Enabled = false;
+            btnRemoverCodigoBarras.Enabled = false;
+            BtnAdicionarCodigoBarras.Enabled = false;
+
+            TxtAdicionarCodigoBarras.ReadOnly = true;
+            TxtCodInsumo.ReadOnly = false;
+            TxtDescricaoInsumo.ReadOnly = false;
+            TxtVolume.ReadOnly = true;
+            CbUnidadeMedida.Enabled = false;
+
             if (novoCadastro)
             {
-                BtnSalvar.Enabled = false;
-                BtnAlterar.Enabled = true;
-                BtnNovo.Enabled = true;
-                BtnCancelar.Enabled = false;
-                btnRemoverCodigoBarras.Enabled = false;
-                BtnAdicionarCodigoBarras.Enabled = false;
-
-                TxtAdicionarCodigoBarras.ReadOnly = true;
-                TxtDescricaoInsumo.ReadOnly = false;
-                TxtVolume.ReadOnly = true;
-                CbUnidadeMedida.Enabled = false;
-
                 novoCadastro = false;
-                LimparCampos();
             }
-
-            if (emEdicao)
+            else if (emEdicao)
             {
-                BtnSalvar.Enabled = false;
-                BtnAlterar.Enabled = true;
-                BtnNovo.Enabled = true;
-                BtnCancelar.Enabled = false;
-                btnRemoverCodigoBarras.Enabled = false;
-                BtnAdicionarCodigoBarras.Enabled = false;
-
-                TxtAdicionarCodigoBarras.ReadOnly = true;
-                TxtDescricaoInsumo.ReadOnly = false;
-                TxtVolume.ReadOnly = true;
-                CbUnidadeMedida.Enabled = false;
-
                 emEdicao = false;
-                LimparCampos();
             }
+            LimparCampos();
         }
 
         private void BtnSalvar_Click(object sender, EventArgs e)
         {
-            if (novoCadastro)
+
+            if (!String.IsNullOrWhiteSpace(TxtDescricaoInsumo.Text) && !String.IsNullOrWhiteSpace(TxtVolume.Text)
+                && CbUnidadeMedida.SelectedIndex != -1 && LbCodigoBarras.Items.Count > 0)
             {
-                if (!String.IsNullOrWhiteSpace(TxtDescricaoInsumo.Text) && !String.IsNullOrWhiteSpace(TxtVolume.Text)
-                    && CbUnidadeMedida.SelectedIndex != -1 && LbCodigoBarras.Items.Count > 0)
+                if (novoCadastro)
                 {
                     string codigosDeBarras = "";
                     foreach (var item in LbCodigoBarras.Items)
                     {
                         codigosDeBarras += $"{item.ToString()} ; ";
                     }
-                    Insumo insumo = new Insumo(TxtDescricaoInsumo.Text, codigosDeBarras, CbUnidadeMedida.SelectedItem.ToString(), Convert.ToDouble(TxtVolume.Text));
-                    insumo.CadastrarInsumo();
-
-                    LimparCampos();
+                    Insumo i = new Insumo(TxtDescricaoInsumo.Text, codigosDeBarras, CbUnidadeMedida.SelectedItem.ToString(), Convert.ToDouble(TxtVolume.Text));
+                    i.CadastrarInsumo();
+                    BtnCancelar_Click(sender, e);
                 }
-                else
+                else if (emEdicao)
                 {
-                    MessageBox.Show("Preencha as informações obrigatórias!");
+                    Insumo i = new Insumo(insumo.Id,TxtDescricaoInsumo.Text, CbUnidadeMedida.SelectedItem.ToString(), Convert.ToDouble(TxtVolume.Text));
+
+                    try
+                    {
+                        i.AlterarInsumo();
+
+                        //verifica se algum barras consta no banco mas foi retirado da lista
+
+                        //verificar cada codigo existente no banco
+                        foreach (CodigoDeBarras codigoDeBarrasBanco in insumo.ListaCodBarras)
+                        {
+                            bool encontrado = false;
+                            //verificar cada barras presente na listbox
+                            foreach (string barrasNaListBox in LbCodigoBarras.Items)
+                            {
+                                if (codigoDeBarrasBanco.Barras == barrasNaListBox)
+                                {
+                                    encontrado = true;
+                                }
+                            }
+                            //se nao foi encontrado algum barras do banco na list box, realiza a sua exclusao
+                            if (!encontrado)
+                            {
+                                codigoDeBarrasBanco.ExcluirBarras();
+                            }
+                        }
+
+                        //verifica todos os barras da lista e insere caso algum nao conste no banco
+
+                        //verificar cada barras presente na listbox
+                        foreach (string barrasNaListBox in LbCodigoBarras.Items)
+                        {
+                            bool encontrado = false;
+                            CodigoDeBarras codParaInserir = new CodigoDeBarras();
+
+                            //verificar cada codigo existente no banco
+                            foreach (CodigoDeBarras codigoDeBarrasBanco in insumo.ListaCodBarras)
+                            {
+                                //codParaInserir.IdInsumo = codigoDeBarrasBanco.IdInsumo;
+                                if (barrasNaListBox == codigoDeBarrasBanco.Barras)
+                                {
+                                    encontrado = true;
+                                }
+                            }
+                            //se nao foi encontrado algum barras da list box no banco, realiza a sua inclusao
+                            if (!encontrado)
+                            {
+                                codParaInserir.IdInsumo = insumo.Id;
+                                codParaInserir.Barras = barrasNaListBox;
+                                codParaInserir.CadastrarBarras();
+                            }
+                        }
+                        MessageBox.Show("Insumo alterado!");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+
+                    BtnCancelar_Click(sender, e);
+                    PreencherInsumo(insumo.Id);
                 }
+            }
+            else
+            {
+                MessageBox.Show("Preencha as informações obrigatórias!");
             }
         }
 
@@ -247,14 +293,23 @@ namespace PetShop.src.Forms
 
         private void BtnAlterar_Click(object sender, EventArgs e)
         {
-            if (!String.IsNullOrWhiteSpace(TxtCodInusmo.Text))
+            if (!String.IsNullOrWhiteSpace(TxtCodInsumo.Text))
             {
                 BtnAlterar.Enabled = false;
                 BtnNovo.Enabled = false;
                 BtnCancelar.Enabled = true;
                 BtnSalvar.Enabled = true;
                 emEdicao = true;
-                
+
+                TxtCodInsumo.ReadOnly = true;
+                btnRemoverCodigoBarras.Enabled = true;
+                BtnAdicionarCodigoBarras.Enabled = true;
+                LbCodigoBarras.Enabled = true;
+                TxtVolume.ReadOnly = false;
+                TxtDescricaoInsumo.ReadOnly = false;
+                CbUnidadeMedida.Enabled = true;
+                TxtAdicionarCodigoBarras.ReadOnly = false;
+
             }
             else
             {
@@ -266,7 +321,7 @@ namespace PetShop.src.Forms
         {
             if ((Keys)e.KeyChar == Keys.Enter)
             {
-                PreencherInsumo(Convert.ToInt32(TxtCodInusmo.Text));
+                PreencherInsumo(Convert.ToInt32(TxtCodInsumo.Text));
             }
         }
     }

@@ -1,5 +1,4 @@
-﻿using System.Data;
-using System.Data.SqlClient;
+﻿using System.Data.SqlClient;
 
 namespace PetShop.src.Models
 {
@@ -64,7 +63,7 @@ namespace PetShop.src.Models
             {
                 comando = $"'{Nome}', '{Telefone}', ";
             }
-            
+
 
             if (String.IsNullOrWhiteSpace(Endereco))
             {
@@ -98,7 +97,8 @@ namespace PetShop.src.Models
                 {
                     comando += $",Cidade = '{Cidade}'";
                 }
-                else {
+                else
+                {
                     comando += $"'{Cidade}',";
                 }
             }
@@ -116,8 +116,9 @@ namespace PetShop.src.Models
                 {
                     comando += $",Bairro = '{Bairro}'";
                 }
-                else { 
-                comando += $"'{Bairro}',";
+                else
+                {
+                    comando += $"'{Bairro}',";
                 }
             }
 
@@ -134,7 +135,8 @@ namespace PetShop.src.Models
                 {
                     comando += $",Observacao = '{Observacoes}'";
                 }
-                else { 
+                else
+                {
                     comando += $"'{Observacoes}'";
                 }
             }
@@ -146,23 +148,25 @@ namespace PetShop.src.Models
             ConexaoBD conexao = new ConexaoBD();
             SqlCommand comandoSql = new SqlCommand();
 
-            
 
-            try {
+
+            try
+            {
                 comandoSql.Connection = conexao.AbrirConexaoBD();
                 string campos = "Nome, Telefone, Endereco, Cidade, Bairro, Observacao";
                 string valores = PreparaValores();
 
                 string comando = $"INSERT INTO Clientes ({campos}) VALUES ({valores})";
-            
+
                 comandoSql.CommandText = comando;
-            
+
                 comandoSql.ExecuteNonQuery();
                 MessageBox.Show("Cliente Cadastrado!");
 
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
-                
+
                 MessageBox.Show(ex.Message);
             }
             finally
@@ -174,13 +178,13 @@ namespace PetShop.src.Models
         public List<Cliente> ListarClientes()
         {
             List<Cliente> ListaClientes = new List<Cliente>();
-            
+
             string comando = "SELECT TOP 100 id,nome,telefone FROM Clientes";
 
             ConexaoBD conexao = new ConexaoBD();
             SqlCommand comandoSql = new SqlCommand();
 
-            
+
             try
             {
                 comandoSql.Connection = conexao.AbrirConexaoBD();
@@ -202,12 +206,12 @@ namespace PetShop.src.Models
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                
+
             }
             finally
             {
                 conexao.FecharConexaoBD();
-                
+
             }
 
             return ListaClientes;
@@ -215,7 +219,7 @@ namespace PetShop.src.Models
 
         public List<Cliente> ListarClientesComFiltro(string conteudo, string filtro)
         {
-           List<Cliente> ListaClientes = new List<Cliente>();
+            List<Cliente> ListaClientes = new List<Cliente>();
 
             string comando = $"SELECT TOP 100 id,nome,telefone FROM Clientes WHERE {filtro} LIKE '{conteudo}%'";
 
@@ -256,7 +260,7 @@ namespace PetShop.src.Models
             ConexaoBD conexao = new ConexaoBD();
             SqlCommand comandoSql = new SqlCommand();
 
-            
+
             try
             {
                 comandoSql.Connection = conexao.AbrirConexaoBD();
@@ -269,7 +273,7 @@ namespace PetShop.src.Models
                     {
                         this.Id = Convert.ToInt32(reader["Id"]);
                         this.Nome = reader["Nome"].ToString();
-                        this.Telefone = reader["Telefone"].ToString() ;
+                        this.Telefone = reader["Telefone"].ToString();
                         this.Bairro = reader["Bairro"].ToString();
                         this.Cidade = reader["Cidade"].ToString();
                         this.Endereco = reader["Endereco"].ToString();
@@ -306,7 +310,7 @@ namespace PetShop.src.Models
                 comandoSql.CommandText = comando;
                 SqlDataReader reader = comandoSql.ExecuteReader();
                 List<Pets> listaPets = new List<Pets>();
-                
+
                 if (reader.HasRows)
                 {
                     while (reader.Read())
@@ -315,7 +319,7 @@ namespace PetShop.src.Models
                         pet.Id = Convert.ToInt32(reader["Id"]);
                         pet.IdTutor = Convert.ToInt32(reader["IdCliente"]);
                         pet.Nome = reader["Nome"].ToString();
-                        pet.Raca= reader["Raca"].ToString();
+                        pet.Raca = reader["Raca"].ToString();
                         pet.Vacinado = Convert.ToInt32(reader["Vacinado"]);
                         pet.TipoDePelagem = reader["TipoPelagem"].ToString();
                         pet.Porte = reader["Porte"].ToString();
@@ -332,7 +336,7 @@ namespace PetShop.src.Models
                     {
                         PetsDoCliente = listaPets;
                     }
-                    
+
                 }
             }
             catch (Exception ex)

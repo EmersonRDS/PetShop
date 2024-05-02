@@ -32,7 +32,7 @@
             BtnBuscarInsumo = new Button();
             TxtDescricaoInsumo = new TextBox();
             LblDescricao = new Label();
-            TxtCodInusmo = new TextBox();
+            TxtCodInsumo = new TextBox();
             lblCodInsumo = new Label();
             LblVolume = new Label();
             TxtVolume = new TextBox();
@@ -79,14 +79,14 @@
             LblDescricao.TabIndex = 32;
             LblDescricao.Text = "Descrição";
             // 
-            // TxtCodInusmo
+            // TxtCodInsumo
             // 
-            TxtCodInusmo.Location = new Point(12, 30);
-            TxtCodInusmo.Name = "TxtCodInusmo";
-            TxtCodInusmo.Size = new Size(64, 23);
-            TxtCodInusmo.TabIndex = 31;
-            TxtCodInusmo.TextChanged += TxtCodInusmo_TextChanged;
-            TxtCodInusmo.KeyPress += TxtCodInusmo_KeyPress;
+            TxtCodInsumo.Location = new Point(12, 30);
+            TxtCodInsumo.Name = "TxtCodInsumo";
+            TxtCodInsumo.Size = new Size(64, 23);
+            TxtCodInsumo.TabIndex = 31;
+            TxtCodInsumo.TextChanged += TxtCodInusmo_TextChanged;
+            TxtCodInsumo.KeyPress += TxtCodInusmo_KeyPress;
             // 
             // lblCodInsumo
             // 
@@ -183,6 +183,7 @@
             // TxtAdicionarCodigoBarras
             // 
             TxtAdicionarCodigoBarras.Location = new Point(12, 80);
+            TxtAdicionarCodigoBarras.MaxLength = 15;
             TxtAdicionarCodigoBarras.Name = "TxtAdicionarCodigoBarras";
             TxtAdicionarCodigoBarras.PlaceholderText = "Digite o código de barras";
             TxtAdicionarCodigoBarras.ReadOnly = true;
@@ -288,7 +289,7 @@
             Controls.Add(BtnBuscarInsumo);
             Controls.Add(TxtDescricaoInsumo);
             Controls.Add(LblDescricao);
-            Controls.Add(TxtCodInusmo);
+            Controls.Add(TxtCodInsumo);
             Controls.Add(lblCodInsumo);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "frmCadastroDeInsumo";
@@ -303,7 +304,7 @@
         private Button BtnBuscarInsumo;
         private TextBox TxtDescricaoInsumo;
         private Label LblDescricao;
-        private TextBox TxtCodInusmo;
+        private TextBox TxtCodInsumo;
         private Label lblCodInsumo;
         private Label LblVolume;
         private TextBox TxtVolume;

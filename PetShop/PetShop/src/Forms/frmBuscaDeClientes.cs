@@ -1,14 +1,4 @@
 ﻿using PetShop.src.Models;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace PetShop.src.Forms
 {
@@ -33,7 +23,7 @@ namespace PetShop.src.Forms
         {
             //começa por 1, pois se for 0 ele irá abrir a tela frmInformaçaoDoCliente quando for aberta a partir da tela frmCadastroDePet
             TelaInicial = 1,
-            InformacaoDoCliente 
+            InformacaoDoCliente
         }
         public frmBuscaDeClientes()
         {
@@ -92,7 +82,7 @@ namespace PetShop.src.Forms
                 DataGridViewRow Row = DtgListaDeClientes.SelectedRows[0];
                 IdCliente = Convert.ToInt32(Row.Cells[(int)ColunasGrid.Id].Value.ToString());
                 DialogResult = DialogResult.OK;
-                
+
                 //quando é aberto pelo frmTelaInicial
                 if (abertoPor == (int)enumOrigem.TelaInicial)
                 {
@@ -120,7 +110,7 @@ namespace PetShop.src.Forms
         {
             if ((Keys)e.KeyChar == Keys.Enter)
             {
-                BtnBuscar_Click(sender,e);
+                BtnBuscar_Click(sender, e);
             }
         }
     }
